@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.AppGoods.dao.AppGoodsDao">
+    <!--查询商品详情-->
+    <select id="getGoods" parameterType="com.xzsd.app.AppGoods.entity.AppGoodsInfo" resultType="com.xzsd.app.AppGoods.entity.AppGoodsInfo">
+    select
+     a.goods_code,
+     a.goods_name goodsName,
+     a.isbn_booknum isBnBookNum,
+     a.goods_introduction goodsIntroduction,
+     a.goods_sell_price goodsSellPrice,
+     a.goods_picture goodsPicture,
+     a.goods_evaluate evaluateContent,
+     a.author,
+     a.press,
+     a.store_name storeName,
+     b.first_sort_name,
+     b.second_sort_name
+     from t_goods_management a ,goods_sort_information b
+     where a.is_deleted = 0   and a.primary_class =b.parent_id and a.second_class = b.sort_id
+        <if test="goodsCode != null and goodsCode    != ''">
+           and a.goods_code  = #{goodsCode}
+        </if>
+        <if test="secondSortCode != null and secondSortCode != ''">
+         and b.parent_id=#{secondSortCode}
+        </if>
+
+    </select>
+    <!--查询商品评价列表-->
+    <select id="listEvaluate" parameterType="com.xzsd.app.AppGoods.entity.AppGoodsInfo" resultType="com.xzsd.app.AppGoods.entity.AppGoodsInfo">
+        select
+        user_acct,
+        evaluate_content,
+        evaluate_score goodsEvaluateScore,
+        create_time evaluateCreateTime,
+        image_path
+        from t_goods_evaluate
+        where is_deleted = 0 and
+        goods_id = #{goodsCode}
+        <if test="secondSortCode != null and secondSortCode != ''">
+            and ecaluate_score=#{goodsEvaluateScore}
+        </if>
+    </select>
+    <!--查询商品一级分类-->
+    <select id="getOneClassifyList" parameterType="com.xzsd.app.AppGoods.entity.AppGoodsInfo" resultType="com.xzsd.app.AppGoods.entity.AppGoodsInfo">
+        select
+        sort_id,
+        first_sort_name
+        from goods_sort_information
+        where is_deleted = 0
+        and parent_id = 0
+    </select>
+
+    <!--查询商品二级分类-->
+    <select id="getTwoClassifyList" parameterType="com.xzsd.app.AppGoods.entity.AppGoodsInfo" resultType="com.xzsd.app.AppGoods.entity.AppGoodsInfo">
+        select
+        sort_id,
+        second_sort_name
+        from goods_sort_information
+        where is_deleted = 0
+        and parent_id = #{secondSortCode}
+    </select>
+
+</mapper>

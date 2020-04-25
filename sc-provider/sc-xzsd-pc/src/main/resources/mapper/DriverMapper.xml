@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.DriverControl.dao.DriverDao">
+<!--新增司机-->
+<insert id="addDriver" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" >
+    insert into t_driver_information
+    (
+        driver_id,
+        driver_name,
+        driver_phone,
+        driver_id_card,
+        driver_acct,
+        driver_pwd,
+        province,
+        city,
+        district,
+        is_deleted,
+        gmt_create,
+        create_by,
+        gmt_modified,
+        last_modified_by,
+        version
+    )
+    values (
+    now(),
+    #{driverName},
+    #{phone},
+    #{idCard},
+    #{driverAccount},
+    #{driverPwd},
+    #{provinceCode},
+    #{cityCode},
+    #{areaCode},
+    0,
+    now(),
+    #{createBy},
+    now(),
+    #{lastModifiedBy},
+    0
+    )
+</insert>
+    <!--查询司机分页-->
+    <select id="listDriver" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" resultType="com.xzsd.pc.DriverControl.entity.DriverInfo">
+        select
+        a.driver_id driverCode,
+        a.driver_name,
+        a.driver_phone phone,
+        a.driver_acct driverAccount,/*司机账号*/
+        a.driver_pwd,
+        a.driver_image,
+        a.driver_id_card idCard,
+        a.province provinceCode,
+        a.city cityCode,
+        a.district areaCode,
+        b.province_name provinceName,
+        b.city_name cityName,
+        b.area_name areaName,
+        a.version version,
+        role role
+        from t_driver_information a, province b
+        where is_deleted = 0 and a.province = b.province_id and a.city = b.city_id and a.district = b.area_id
+        <if test="driverCode != null and driverCode != ''">
+            and driver_id = #{driverCode}
+        </if>
+        <if test="driverName != null and driverName != ''">
+            and driver_name like concat('%', #{driverName}, '%')
+        </if>
+        <if test="provinceCode != null and provinceCode != ''">
+            and province like concat('%', #{provinceCode}, '%')
+        </if>
+        <if test="cityCode != null and cityCode != ''">
+            and city like concat('%', #{cityCode}, '%')
+        </if>
+        <if test="areaCode != null and areaCode != ''">
+            and district like concat('%', #{areaCode}, '%')
+        </if>
+        <if test="role != null and role != ''">
+            and role like concat('%', #{role}, '%')
+        </if>
+
+
+    </select>
+
+    <!--查询司机详情-->
+    <select id="getDriver" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" resultType="com.xzsd.pc.DriverControl.entity.DriverInfo">
+        select
+        a.driver_id  driverCode,
+        a.driver_name driverName,
+        a.driver_phone phone,
+        a.driver_acct driverAccount, /*司机账号*/
+        a.driver_pwd driverPwd,
+        a.driver_image driverImage,
+        a.driver_id_card idCard,
+        a.province provinceCode,
+        a.city cityCode,
+        a.district areaCode,
+        b.province_name provinceName,
+        b.city_name cityName,
+        b.area_name areaName,
+        a.version
+        from t_driver_information a,province b
+        where is_deleted = 0 and a.province = b.province_id and a.city = b.city_id and a.district = b.area_id
+        <if test="driverCode != null and driverCode != ''">
+            and driver_id like concat('%', #{driverCode}, '%')
+        </if>
+
+    </select>
+    <!--修改司机信息-->
+    <update id="updateDriver" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" >
+        update  t_driver_information
+        set
+        driver_name = #{driverName},
+        driver_phone = #{phone},
+        driver_acct = #{driverAccount},
+        driver_pwd = #{driverPwd},
+        driver_image = #{driverImage},
+        driver_id_card =#{idCard},
+        province = #{provinceCode},
+        city = #{cityCode},
+        district = #{areaCode},
+        version = version +1
+        where  is_deleted = 0
+        and version = #{version}
+        and driver_id = #{driverCode}
+    </update>
+    <!--删除司机信息-->
+    <update id="deleteDriver" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" >
+        update t_driver_information
+        set
+        is_deleted = 1,
+        gmt_modified = now(),
+        last_modified_by = #{lastModifiedBy},
+        version = version + 1
+        where is_deleted = 0
+         <if test="driverCode != null and driverCode != ''">
+        and driver_id like concat('%', #{driverCode}, '%')
+    </if>
+    </update>
+
+    <!--统计司机id数量-->
+    <select id="countDriverCode" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" resultType="integer" >
+
+        select count(driver_id_card)
+        from t_driver_information
+        where driver_id_card = #{idCard}
+        and is_deleted = 0
+    </select>
+<!--查询省市区-->
+    <select id="china" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" resultType="com.xzsd.pc.DriverControl.entity.DriverInfo">
+       select
+       sort_id sortCode,
+       province_name provinceName,
+       city_name cityName,
+       area_name  areaName,
+       parent_id parentCode
+       from province
+       where parent_id = #{parentCode}
+
+    </select>
+</mapper>

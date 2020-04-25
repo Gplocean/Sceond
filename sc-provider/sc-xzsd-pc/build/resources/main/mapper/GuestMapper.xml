@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.GuestControl.dao.GuestDao">
+
+
+    <!--客户列表-->
+    <select id="listGuestByPage" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="com.xzsd.pc.GuestControl.entity.GuestInfo">
+
+  select
+      user_acct userAccount,
+      user_name guestName,
+      sex,
+      phone telephone,
+      email,
+      idCard guestIdCard,
+      role role
+  from  t_guest_management
+  where is_deleted =0
+        <if test="userAccount != null and userAccount != ''">
+            and user_acct like concat('%', #{userAccount}, '%')
+        </if>
+        <if test="guestName != null and guestName != ''">
+        and user_name like concat('%', #{guestName}, '%')
+        </if>
+    </select>
+</mapper>

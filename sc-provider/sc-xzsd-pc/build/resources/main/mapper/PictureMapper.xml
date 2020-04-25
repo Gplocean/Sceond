@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.pc.PictureControl.dao.PictureDao">
+    <!--新增轮播图-->
+<insert id="addPicture" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo">
+    insert into t_picture_management
+    (   picture_id,
+        picture_sorting,
+        picture_state,
+        picture_path,
+        effective_date,
+        expiry_date,
+        goods_code,
+        is_deleted,
+        gmt_create,
+        create_by,
+        gmt_modified,
+        last_modified_by,
+        version
+    )
+   values
+   (
+        now(),
+        #{pictureNum},
+        0,
+        #{picturePath},
+        #{effectiveDate},
+        #{expiryDate},
+        #{goodsCode},
+        #{isDeleted},
+        now(),
+        #{createBy},
+        now(),
+        #{lastModifiedBy},
+        0
+   )
+</insert>
+    <!--修改轮播图状态-->
+    <update id="updatePicture" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo">
+        update t_picture_management
+        set
+        picture_state = #{pictureState},
+        gmt_modified = now(),
+        version = version + 1
+        where is_deleted=0
+        <if test="pictureCode != null and pictureCode != ''">
+            and picture_id like concat('%',#{pictureCode},'%')
+        </if>
+        <if test="version != null and version != ''">
+            and version like concat('%',#{version},'%')
+        </if>
+    </update>
+
+    <!--删除轮播图-->
+    <update id="deletePicture" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo">
+        update t_picture_management
+        set
+        is_deleted = 1,
+        gmt_modified = now(),
+        version = version + 1
+        where picture_id = #{pictureCode}
+
+    </update>
+    <!--查询轮播图列表-->
+    <select id="listPictureByPage" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo" resultType="com.xzsd.pc.PictureControl.entity.PictureInfo">
+        select
+        picture_id pictureCode,
+        picture_sorting pictureNum,
+        picture_path,
+        picture_state,
+        effective_date,
+        expiry_date,
+        goods_code,
+        goods_picture,
+        version
+        from t_picture_management
+        where is_deleted = 0
+        <if test="pictureState != null and pictureState != ''">
+            and picture_state like concat('%', #{pictureState}, '%')
+        </if>
+        order by picture_sorting DESC
+    </select>
+    <!--统计轮播图序号-->
+    <select id="countPictureNum" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo" resultType="Integer">
+
+    select  count(picture_sorting)
+    from t_picture_management
+    where is_deleted = 0
+    and picture_sorting = #{pictureNum}
+    </select>
+    <!--统计商品id-->
+    <select id="countGoodsCode" parameterType="com.xzsd.pc.PictureControl.entity.PictureInfo" resultType="Integer">
+
+    select  count(goods_code)
+    from t_picture_management
+    where is_deleted = 0
+    and goods_code = #{goodsCode}
+    </select>
+    <!--查询商品列表-->
+    <select id="listGoods" parameterType="java.lang.String" resultType="com.xzsd.pc.GoodsControl.entity.GoodsInfo">
+    select
+    a.goods_code goodsCode,
+    a.goods_name goodsName,
+    a.primary_class,
+    a.second_class,
+    a.goods_status
+    from t_goods_management a
+    where goods_code = #{goodsCode}
+    and is_deleted =0
+    </select>
+
+</mapper>
