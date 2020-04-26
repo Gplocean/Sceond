@@ -3,6 +3,7 @@ package com.xzsd.pc.GoodsSortControl.dao;
 
 import com.xzsd.pc.GoodsSortControl.entity.GoodsSortInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,10 +55,11 @@ public interface GoodsSortDao {
 
     /**
      * 删除商品分类
-     * @param goodsSortInfo
+     * @param goodsSortCode
+     * @param listCode
      * @return
      */
-    int deleteGoodsSort(GoodsSortInfo goodsSortInfo);
+    int deleteGoodsSort(@Param("listCode")List<String> listCode, @Param("goodsSortCode") String goodsSortCode);
 
     /**
      * 统计商品分类数量

@@ -7,12 +7,13 @@ import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
 import com.xzsd.pc.DriverControl.dao.DriverDao;
 import com.xzsd.pc.DriverControl.entity.DriverInfo;
-import com.xzsd.pc.StoreControl.entity.StoreInfo;
+import com.xzsd.pc.DriverControl.entity.DriverInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -61,22 +62,24 @@ public class DriverService {
     }
 
     /**
-     * 删除司机
-     * @param driverInfo
+     *删除司机
+     * @param driverCode
+     * @param listCode
      * @return
      * @author 刘桂鹏
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteDriver(DriverInfo driverInfo) {
-
-        // 删除司机
-        int count = driverDao.deleteDriver(driverInfo);
+    public AppResponse deleteDriver(String listCode,String driverCode) {
+        List<String> list = Arrays.asList(listCode.split(","));
+        // 删除门店
+        int count = driverDao.deleteDriver(list,driverCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
         return AppResponse.success("删除成功！");
     }
+
 
     /**
      * 修改司机
@@ -119,8 +122,8 @@ public class DriverService {
     public AppResponse getChina(DriverInfo driverInfo){
 
         PageHelper.startPage(driverInfo.getPageNum(), driverInfo.getPageSize());
-        List<DriverInfo> storeInfoList = driverDao.getChina(driverInfo);
-        PageInfo<DriverInfo> pageData = new PageInfo<>(storeInfoList);
+        List<DriverInfo> DriverInfoList = driverDao.getChina(driverInfo);
+        PageInfo<DriverInfo> pageData = new PageInfo<>(DriverInfoList);
 
         return AppResponse.success("从数据库查询成功!", pageData);
 

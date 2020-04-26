@@ -2,6 +2,7 @@ package com.xzsd.pc.GoodsSortControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.GoodsSortControl.entity.GoodsSortInfo;
 import com.xzsd.pc.GoodsSortControl.service.GoodsSortService;
 import org.slf4j.Logger;
@@ -71,17 +72,18 @@ public class GoodsSortControl {
     /**
      * demo 删除商品分类
      *
-     * @param goodsSortInfo
+     * @param goodsSortCode
      * @return AppResponse
      * @author Liu
      * @Date 2020-04-10
      */
-    @PostMapping("/deleteGoodsClassify")
-    public AppResponse deleteGoodsSort(GoodsSortInfo goodsSortInfo) {
+    @PostMapping("/deletePicture")
+    public AppResponse deleteStore(String goodsSortCode) {
         try {
-            return goodsSortService.deleteGoodsSort(goodsSortInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return goodsSortService.deleteGoodsSort(goodsSortCode,storeCod);
         } catch (Exception e) {
-            logger.error("删除商品分类异常", e);
+            logger.error("删除门店异常", e);
             System.out.println(e.toString());
             throw e;
         }

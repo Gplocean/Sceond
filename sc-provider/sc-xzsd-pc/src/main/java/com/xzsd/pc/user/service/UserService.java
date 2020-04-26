@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @DescriptionDemo 实现类
- * @Author linxuliang
+ * @Author liuguipeng
  * @Date 2020-04-1
  */
 @Service
@@ -31,7 +31,7 @@ public class UserService {
      *
      * @param userInfo
      * @return
-     * @Author linxuliang
+     * @Author liuguipeng
      * @Date 2020-04-1
      */
     @Transactional(rollbackFor = Exception.class)
@@ -58,7 +58,7 @@ public class UserService {
      *
      * @param userInfo
      * @return
-     * @Author linxuliang
+     * @Author liuguipeng
      * @Date 2020-04-1
      */
     public AppResponse listUsers(UserInfo userInfo) {
@@ -75,7 +75,7 @@ public class UserService {
      * @param userCode
      * @param userId
      * @return
-     * @Author linxuliang
+     * @Author liuguipeng
      * @Date 2020-04-1
      */
     @Transactional(rollbackFor = Exception.class)
@@ -94,7 +94,7 @@ public class UserService {
      *
      * @param userInfo
      * @return
-     * @Author linxuliang
+     * @Author liuguipeng
      * @Date 2020-04-1
      */
     @Transactional(rollbackFor = Exception.class)
@@ -123,7 +123,7 @@ public class UserService {
      *
      * @param userId
      * @return
-     * @Author linxuliang
+     * @Author liuguipeng
      * @Date 2020-04-1
      */
     public AppResponse getUserByUserCode(UserInfo userId) {

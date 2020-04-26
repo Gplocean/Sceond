@@ -2,6 +2,7 @@ package com.xzsd.pc.PictureControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.PictureControl.entity.PictureInfo;
 import com.xzsd.pc.PictureControl.service.PictureService;
@@ -64,13 +65,14 @@ public class PictureControl {
 
     /**
      * 删除轮播图
-     * @param pictureInfo
+     * @param pictureCode
      * @return
      */
     @PostMapping("/deletePicture")
-    public AppResponse deletePicture(PictureInfo pictureInfo) {
+    public AppResponse deleteStore(String pictureCode) {
         try {
-            return pictureService.deletePicture(pictureInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return pictureService.deletePicture(pictureCode,storeCod);
         } catch (Exception e) {
             logger.error("删除轮播图异常", e);
             System.out.println(e.toString());

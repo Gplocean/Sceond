@@ -131,10 +131,11 @@
         gmt_modified = now(),
         last_modified_by = #{lastModifiedBy},
         version = version + 1
-        where is_deleted = 0
-         <if test="driverCode != null and driverCode != ''">
-        and driver_id like concat('%', #{driverCode}, '%')
-    </if>
+        where driver_id in
+        <foreach item="store" index="index" collection="listCode" open="(" separator="," close=")">
+            #{store}
+        </foreach>
+
     </update>
 
     <!--统计司机id数量-->

@@ -3,6 +3,7 @@ package com.xzsd.pc.GoodsControl.dao;
 
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -53,10 +54,11 @@ public interface GoodsDao {
 
     /**
      * 删除商品
-     * @param goodsInfo
+     * @param goodsCode
+     * @param  listCode
      * @return
      */
-      int deleteGoods(GoodsInfo goodsInfo);
+    int deleteGoods(@Param("listCode")List<String> listCode, @Param("goodsCode") String goodsCode);
 
     /**
      * 修改商品状态

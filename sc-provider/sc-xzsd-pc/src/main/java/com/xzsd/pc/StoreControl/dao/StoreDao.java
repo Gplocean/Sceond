@@ -3,6 +3,7 @@ package com.xzsd.pc.StoreControl.dao;
 
 import com.xzsd.pc.StoreControl.entity.StoreInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -47,10 +48,11 @@ public interface StoreDao {
 
     /**
      * 删除门店
-     * @param storeInfo
+     * @param storeCode
+     * @param listCode
      * @return
      */
-    int deleteStore(StoreInfo storeInfo);
+    int deleteStore(@Param("listCode")List<String> listCode,@Param("storeCode") String storeCode);
 
 
     /**

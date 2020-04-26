@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -66,15 +67,16 @@ public class GoodsSortService {
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteGoodsSort(GoodsSortInfo goodsSortInfo) {
-
-        // 删除商品分类
-        int count = goodsSortDao.deleteGoodsSort(goodsSortInfo);
+    public AppResponse deleteGoodsSort(String listCode,String GoodsSortCode) {
+        List<String> list = Arrays.asList(listCode.split(","));
+        // 删除门店
+        int count = goodsSortDao.deleteGoodsSort(list,GoodsSortCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
         return AppResponse.success("删除成功！");
     }
+
 
     /**
      * 修改商品分类

@@ -2,6 +2,7 @@ package com.xzsd.pc.StoreControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.StoreControl.entity.StoreInfo;
 import com.xzsd.pc.StoreControl.service.StoreService;
 import org.slf4j.Logger;
@@ -63,13 +64,15 @@ public class StoreControl {
 
     /**
      * 删除门店
-     * @param storeInfo
+     * @param storeCode
+     * @param
      * @return
-     */
+*/
     @PostMapping("/deleteStore")
-    public AppResponse deleteStore(StoreInfo storeInfo) {
+    public AppResponse deleteStore(String storeCode) {
         try {
-            return storeService.deleteStore(storeInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return storeService.deleteStore(storeCode,storeCod);
         } catch (Exception e) {
             logger.error("删除门店异常", e);
             System.out.println(e.toString());

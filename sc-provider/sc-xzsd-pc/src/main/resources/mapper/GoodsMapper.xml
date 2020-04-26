@@ -120,9 +120,11 @@
         set
         is_deleted = 1,
         gmt_modified = now(),
-        last_modified_by = #{lastModifiedBy}
-
-        where goods_code = #{goodsCode}
+        last_modified_by = now()
+        where goods_code in
+        <foreach item="store" index="index" collection="listCode" open="(" separator="," close=")">
+            #{store}
+        </foreach>
     </update>
 
     <!--修改商品信息-->

@@ -90,10 +90,13 @@
         set
         is_deleted = 1,
         gmt_modified = now(),
-        last_modified_by =#{lastModifiedBy},
+        last_modified_by = now(),
         version = version + 1
-        where hotGoods_id = #{hotGoodsCode}
-        and  version =#{version}
+        where hotGoods_id in
+        <foreach item="store" index="index" collection="listCode" open="(" separator="," close=")">
+            #{store}
+        </foreach>
+
     </update>
     <!--判断商品是否已被选择-->
     <select id="countGoodsCode" parameterType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo" resultType="Integer"  >

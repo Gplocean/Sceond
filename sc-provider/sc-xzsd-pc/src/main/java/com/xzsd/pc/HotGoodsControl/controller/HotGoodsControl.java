@@ -2,6 +2,7 @@ package com.xzsd.pc.HotGoodsControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo;
 import com.xzsd.pc.HotGoodsControl.service.HotGoodsService;
@@ -64,15 +65,16 @@ public class HotGoodsControl {
 
     /**
      * 删除热门商品
-     * @param hotGoodsInfo
+     * @param hotGoodsCode
      * @return
      */
     @PostMapping("/deleteHotGoods")
-    public AppResponse deleteHotGoods(HotGoodsInfo hotGoodsInfo) {
+    public AppResponse deleteStore(String hotGoodsCode) {
         try {
-            return hotGoodsService.deleteHotGoods(hotGoodsInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return hotGoodsService.deleteHotGoods(hotGoodsCode,storeCod);
         } catch (Exception e) {
-            logger.error("删除热门商品异常", e);
+            logger.error("删除门店异常", e);
             System.out.println(e.toString());
             throw e;
         }

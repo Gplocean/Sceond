@@ -125,9 +125,10 @@
         is_deleted = 1,
         version = version + 1,
         last_modified_by = now()
-        where
-        store_id = #{storeCode}
-        and version =#{version}
+        where store_id in
+         <foreach item="store" index="index" collection="listCode" open="(" separator="," close=")">
+             #{store}
+         </foreach>
     </update>
 <!--统计门店数量-->
     <select id="countStoreCode" parameterType="com.xzsd.pc.StoreControl.entity.StoreInfo" resultType="integer" >
@@ -137,7 +138,7 @@
         where store_id = #{storeCode}
         and is_deleted = 0
     </select>
-    
+    <!--获取省市区-->
     <select id="getChina" parameterType="com.xzsd.pc.StoreControl.entity.StoreInfo" resultType="com.xzsd.pc.StoreControl.entity.StoreInfo">
        select
        sort_id sortCode,

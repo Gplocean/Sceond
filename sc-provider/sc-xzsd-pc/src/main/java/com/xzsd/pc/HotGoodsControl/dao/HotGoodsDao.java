@@ -4,6 +4,7 @@ package com.xzsd.pc.HotGoodsControl.dao;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -72,7 +73,7 @@ public interface HotGoodsDao {
      * @param hotGoodsInfo
      * @return
      */
-    int deleteHotGoods(HotGoodsInfo hotGoodsInfo);
+    int deleteHotGoods(@Param("listCode")List<String> listCode, @Param("hotGoodsCode") String hotGoodsCode);
 
     /**
      * 统计商品编码数量

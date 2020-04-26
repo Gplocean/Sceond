@@ -4,6 +4,7 @@ package com.xzsd.pc.PictureControl.dao;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.PictureControl.entity.PictureInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,10 +55,11 @@ public interface PictureDao {
 
     /**
      * 删除商品
-     * @param pictureInfo
+     * @param listCode
+     * @param pictureCode
      * @return
      */
-    int deletePicture(PictureInfo pictureInfo);
+    int deletePicture(@Param("listCode")List<String> listCode, @Param("pictureCode") String pictureCode);
 
     /**
      * 统计商品编码数量

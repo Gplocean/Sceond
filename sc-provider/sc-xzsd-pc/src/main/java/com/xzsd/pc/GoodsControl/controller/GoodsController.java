@@ -3,6 +3,7 @@ package com.xzsd.pc.GoodsControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.GoodsControl.service.GoodsService;
 import org.slf4j.Logger;
@@ -50,6 +51,11 @@ public class GoodsController {
 
     }
 
+    /**
+     * 商品分页查询
+     * @param goodsInfo
+     * @return
+     */
     @PostMapping("/listGoods")
     public AppResponse listGoods(GoodsInfo goodsInfo) {
         try {
@@ -63,12 +69,18 @@ public class GoodsController {
 
     }
 
+    /**
+     * 删除商品
+     * @param goodsCode
+     * @return
+     */
     @PostMapping("/deleteGoods")
-    public AppResponse deleteGoods(GoodsInfo goodsInfo) {
+    public AppResponse deleteStore(String goodsCode) {
         try {
-            return goodsService.deleteGoods(goodsInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return goodsService.deleteGoods(goodsCode,storeCod);
         } catch (Exception e) {
-            logger.error("删除商品异常", e);
+            logger.error("删除门店异常", e);
             System.out.println(e.toString());
             throw e;
         }

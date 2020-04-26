@@ -2,6 +2,7 @@ package com.xzsd.pc.DriverControl.controller;
 
 
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
 import com.xzsd.pc.DriverControl.entity.DriverInfo;
 import com.xzsd.pc.DriverControl.service.DriverService;
 import com.xzsd.pc.StoreControl.entity.StoreInfo;
@@ -64,15 +65,16 @@ public class DriverControl {
 
     /**
      * 删除司机
-     * @param driverInfo
+     * @param driverCode
      * @return
      */
     @PostMapping("/deleteDriver")
-    public AppResponse deleteDriver(DriverInfo driverInfo) {
+    public AppResponse deleteStore(String driverCode) {
         try {
-            return driverService.deleteDriver(driverInfo);
+            String storeCod = SecurityUtils.getCurrentUserId();
+            return driverService.deleteDriver(driverCode,storeCod);
         } catch (Exception e) {
-            logger.error("删除司机异常", e);
+            logger.error("删除门店异常", e);
             System.out.println(e.toString());
             throw e;
         }

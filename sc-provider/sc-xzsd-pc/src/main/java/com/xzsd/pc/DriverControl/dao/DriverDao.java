@@ -4,6 +4,7 @@ package com.xzsd.pc.DriverControl.dao;
 import com.xzsd.pc.DriverControl.entity.DriverInfo;
 import com.xzsd.pc.StoreControl.entity.StoreInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -48,10 +49,10 @@ public interface DriverDao {
 
     /**
      * 删除司机
-     * @param driverInfo
+     * @param driverCode
      * @return
      */
-    int deleteDriver(DriverInfo driverInfo);
+    int deleteDriver(@Param("listCode")List<String> listCode, @Param("driverCode") String driverCode);
 
 
 

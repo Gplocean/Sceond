@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -68,21 +69,23 @@ public class GoodsService {
 
     /**
      * 删除商品
-     * @param goodsInfo
+     * @param listCode
+     * @param  goodsCode
      * @return
      * @author 刘桂鹏
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteGoods(GoodsInfo goodsInfo) {
-
-        // 删除商品
-        int count = goodsDao.deleteGoods(goodsInfo);
+    public AppResponse deleteGoods(String listCode,String goodsCode) {
+        List<String> list = Arrays.asList(listCode.split(","));
+        // 删除门店
+        int count = goodsDao.deleteGoods(list,goodsCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
         return AppResponse.success("删除成功！");
     }
+
 
     /**
      * 修改商品

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -64,21 +65,23 @@ public class HotGoodsService {
 
     /**
      * 删除热门商品
-     * @param hotGoodsInfo
+     * @param hotGoodsCode
+     * @param
      * @return
      * @author 刘桂鹏
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteHotGoods(HotGoodsInfo hotGoodsInfo) {
-
-        // 删除用户
-        int count = hotGoodsDao.deleteHotGoods(hotGoodsInfo);
+    public AppResponse deleteHotGoods(String listCode,String hotGoodsCode) {
+        List<String> list = Arrays.asList(listCode.split(","));
+        // 删除门店
+        int count = hotGoodsDao.deleteHotGoods(list,hotGoodsCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
         return AppResponse.success("删除成功！");
     }
+
 
     /**
      * 修改热门商品

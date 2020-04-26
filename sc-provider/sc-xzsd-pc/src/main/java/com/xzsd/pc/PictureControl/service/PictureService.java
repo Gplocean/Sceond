@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -65,21 +66,22 @@ public class PictureService {
 
     /**
      * 删除轮播图
-     * @param pictureInfo
+     * @param pictureCode
      * @return
      * @author 刘桂鹏
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deletePicture(PictureInfo pictureInfo) {
-
-        // 删除轮播图
-        int count = pictureDao.deletePicture(pictureInfo);
+    public AppResponse deletePicture(String listCode,String pictureCode) {
+        List<String> list = Arrays.asList(listCode.split(","));
+        // 删除门店
+        int count = pictureDao.deletePicture(list,pictureCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
         return AppResponse.success("删除成功！");
     }
+
 
     /**
      * 修改轮播图状态

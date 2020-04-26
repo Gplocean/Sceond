@@ -5,6 +5,8 @@ import com.neusoft.core.restful.AppResponse;
 import com.xzsd.pc.utils.TencentCosUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping(value = "/picture")
+
 public class Upload {
 
     @RequestMapping(value = "upload")
