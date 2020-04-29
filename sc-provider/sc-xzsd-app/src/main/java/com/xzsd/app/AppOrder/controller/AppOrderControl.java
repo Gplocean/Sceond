@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/pc/hotGoods")
+@RequestMapping("/AppOrder")
 public class AppOrderControl {
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
@@ -24,33 +24,15 @@ public class AppOrderControl {
 
 
     /**
-     * 新增购物车
+     * 查询订单列表
      *
      * @param appOrderInfo
      * @return
      */
-    @PostMapping("/addShop")
-    public AppResponse addShop(AppOrderInfo appOrderInfo) {
+    @PostMapping("/listOrder")
+    public AppResponse listOrder(AppOrderInfo appOrderInfo) {
         try {
-            return appOrderService.addShop(appOrderInfo);
-        } catch (Exception e) {
-            logger.error("新增购物车异常", e);
-            System.out.println(e.toString());
-            throw e;
-        }
-
-    }
-
-    /**
-     * 修改购物车
-     *
-     * @param appOrderInfo
-     * @return
-     */
-    @PostMapping("/updateShop")
-    public AppResponse updateShop(AppOrderInfo appOrderInfo) {
-        try {
-            return appOrderService.updateShop(appOrderInfo);
+            return appOrderService.listOrder(appOrderInfo);
         } catch (Exception e) {
             logger.error("查询热门商品列表异常", e);
             System.out.println(e.toString());
@@ -59,16 +41,33 @@ public class AppOrderControl {
     }
 
     /**
-     * 查询购物车
+     * 查询订单商品信息
+     *
+     * @param appOrderInfo
+     * @return
+     */
+    @PostMapping("/listEvaluateGoods")
+    public AppResponse listEvaluate(AppOrderInfo appOrderInfo) {
+        try {
+            return appOrderService.listEvaluate(appOrderInfo);
+        } catch (Exception e) {
+            logger.error("查询热门商品列表异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 查询订单详情
      *
      * @param appOrderInfo
      * @return
      */
 
-    @PostMapping("/listShop")
+    @PostMapping("/getOrder")
     public AppResponse getHotGoods(AppOrderInfo appOrderInfo) {
         try {
-            return appOrderService.listShop(appOrderInfo);
+            return appOrderService.getOrder(appOrderInfo);
         } catch (Exception e) {
             logger.error("查询购物车异常", e);
             System.out.println(e.toString());
@@ -77,18 +76,52 @@ public class AppOrderControl {
     }
 
     /**
-     * 删除购物车
+     * 修改订单状态
      *
      * @param appOrderInfo
      * @return
      */
 
-    @PostMapping("/deleteShop")
-    public AppResponse deleteShop(AppOrderInfo appOrderInfo) {
+    @PostMapping("/updateOrder")
+    public AppResponse updateOrder(AppOrderInfo appOrderInfo) {
         try {
-            return appOrderService.deleteShop(appOrderInfo);
+            return appOrderService.updateOrder(appOrderInfo);
         } catch (Exception e) {
             logger.error("查询购物车异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 新增订单
+     *
+     * @param appOrderInfo
+     * @return
+     */
+    @PostMapping("/addOrder")
+    public AppResponse addOrder(AppOrderInfo appOrderInfo) {
+        try {
+            return appOrderService.addOrder(appOrderInfo);
+        } catch (Exception e) {
+            logger.error("查询热门商品列表异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 新增商品评价
+     *
+     * @param appOrderInfo
+     * @return
+     */
+    @PostMapping("/addEvaluate")
+    public AppResponse addEvaluate(AppOrderInfo appOrderInfo) {
+        try {
+            return appOrderService.addEvaluate(appOrderInfo);
+        } catch (Exception e) {
+            logger.error("查询热门商品列表异常", e);
             System.out.println(e.toString());
             throw e;
         }

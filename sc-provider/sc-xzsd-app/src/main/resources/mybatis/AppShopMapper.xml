@@ -7,7 +7,10 @@
         (
         shop_id,
         goods_id ,
-        goods_count ,
+        goods_count,
+        goods_name,
+        goods_price,
+        goods_path,
         is_deleted,
         gmt_create,
         create_by,
@@ -20,6 +23,9 @@
         now(),
         #{goodsCode},
         #{goodsCount},
+        #{goodsName},
+        #{goodsPrice},
+        #{goodsPath},
         0,
         now(),
         #{createBy},
@@ -33,15 +39,16 @@
     <select id="listShop" parameterType="com.xzsd.app.AppShop.entity.AppShopInfo" resultType="com.xzsd.app.AppShop.entity.AppShopInfo">
 
         select
-        shop_id shopCode,
-        goods_id goodsCode,
-        goods_name,
-        goods_path,
-        goods_count,
-        goods_price,
-        version
-       from   t_app_shop
-       where is_deleted = 0
+        a.shop_id shopCode,
+        a.goods_id goodsCode,
+        b.goods_name,
+        b.goods_picture goodsPath,
+        a.goods_count,
+        b.goods_sell_price goodsPrice,
+        a.version
+       from   t_app_shop a, t_goods_management b
+       where a.is_deleted = 0 and b.is_deleted = 0
+       and a.goods_id = b.goods_code
 
     </select>
     <!--修改购物车-->

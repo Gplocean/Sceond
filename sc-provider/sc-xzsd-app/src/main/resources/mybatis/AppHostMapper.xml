@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.AppHost.dao.AppHostDao">
+
+    <resultMap id="AppHostInfo" type="com.xzsd.app.AppHost.entity.AppHostInfo">
+        <id column="order_id" property="orderCode" jdbcType="VARCHAR"/>
+        <result column="order_price" property="orderPrice" jdbcType="VARCHAR"/>
+        <result column="goods_count" property="goodsCount" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderState" jdbcType="VARCHAR"/>
+        <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+        <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="version" property="version" jdbcType="VARCHAR"/>
+        <collection property="hostGoodsInfo" ofType="com.xzsd.app.AppHost.entity.hostGoodsInfo">
+            <id column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+            <result column="goods_sell_price" property="goodsPrice" jdbcType="VARCHAR"/>
+            <result column="goods_picture" property="goodsPicture" jdbcType="VARCHAR"/>
+            <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+            <result column="goods_count" property="goodsCount" jdbcType="VARCHAR"/>
+            <result column="introduction" property="goodsIntroduction" jdbcType="VARCHAR"/>
+            <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
+            <result column="address" property="address" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+    <select id="listHostOrder" resultMap="AppHostInfo">
+        select
+        a.order_id,
+        a.order_status,
+        b.user_code,
+        b.user_name,
+        b.phone,
+        a.order_price,
+        a.goods_count,
+        a.version,
+        c.goods_name ,
+        c.goods_picture ,
+        c.goods_introduction ,
+        c.goods_sell_price ,
+        a.goods_count ,
+        c.goods_code
+        from t_order_management a,t_sys_user b, t_goods_management c
+        where a.user_id =b.user_code and a.goods_id = c.goods_code
+
+    </select>
+    <!--修改店长订单状态-->
+    <update id="updateHostOrder" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo">
+        update t_order_management
+        set
+        order_status = #{orderState},
+        version = version+1,
+        gmt_modified = now()
+        where order_id = #{orderCode}
+        and version = #{version}
+    </update>
+
+<!--查询店长订单详情-->
+    <select id="listHostOrder" resultMap="AppHostInfo">
+        select
+        a.order_id,
+        a.order_status,
+        b.user_code,
+        b.user_name,
+        b.phone,
+        a.order_price,
+        a.goods_count,
+        a.version,
+        c.goods_name ,
+        c.goods_picture ,
+        c.goods_introduction ,
+        c.goods_sell_price ,
+        a.goods_count ,
+        c.goods_code,
+        d.store_name,
+        d.address
+        from t_order_management a,t_sys_user b, t_goods_management c,t_store_information d
+        where a.user_id =b.user_code and a.goods_id = c.goods_code and c.store_code = d.store_id
+         and order_id = #{orderCode}
+    </select>
+    <!--查询门店下司机信息-->
+    <select id="listDriver" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo" resultType="com.xzsd.app.AppHost.entity.AppHostInfo">
+        select
+        a.driver_name,
+        a.phone
+        from t_driver_information a,t_store_information b
+        where a.store_id = b.store_id
+    </select>
+</mapper>

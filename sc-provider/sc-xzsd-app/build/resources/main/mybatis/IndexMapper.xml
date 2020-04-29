@@ -14,8 +14,8 @@
         select
         goods_code,
         goods_name,
-        goods_picture,
-        goods_sell_price
+        goods_picture goodsPath,
+        goods_sell_price goodsPrice
         from t_goods_management
         where is_deleted = 0
     </select>

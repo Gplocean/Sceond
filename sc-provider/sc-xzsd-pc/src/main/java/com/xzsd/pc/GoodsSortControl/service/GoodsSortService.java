@@ -67,10 +67,9 @@ public class GoodsSortService {
      *
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteGoodsSort(String listCode,String GoodsSortCode) {
-        List<String> list = Arrays.asList(listCode.split(","));
-        // 删除门店
-        int count = goodsSortDao.deleteGoodsSort(list,GoodsSortCode);
+    public AppResponse deleteGoodsSort(String GoodsSortCode) {
+
+        int count = goodsSortDao.deleteGoodsSort(GoodsSortCode);
         if (0 == count) {
             return AppResponse.bizError("删除失败，请重试！");
         }
@@ -107,7 +106,7 @@ public class GoodsSortService {
      * @author 刘桂鹏
      */
     public AppResponse getGoodsSort(GoodsSortInfo goodsSortSortNum) {
-        GoodsSortInfo goodsSortInfo  = goodsSortDao.getGoodsSort(goodsSortSortNum);
+        List<GoodsSortInfo> goodsSortInfo  = goodsSortDao.getGoodsSort(goodsSortSortNum);
         return AppResponse.success("查询成功！", goodsSortInfo);
     }
 

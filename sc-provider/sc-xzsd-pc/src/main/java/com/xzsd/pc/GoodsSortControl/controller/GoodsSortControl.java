@@ -77,13 +77,12 @@ public class GoodsSortControl {
      * @author Liu
      * @Date 2020-04-10
      */
-    @PostMapping("/deletePicture")
-    public AppResponse deleteStore(String goodsSortCode) {
+    @PostMapping("/deleteGoodsClassify")
+    public AppResponse deleteStore(String classCode) {
         try {
-            String storeCod = SecurityUtils.getCurrentUserId();
-            return goodsSortService.deleteGoodsSort(goodsSortCode,storeCod);
+            return goodsSortService.deleteGoodsSort(classCode);
         } catch (Exception e) {
-            logger.error("删除门店异常", e);
+            logger.error("删除分类异常", e);
             System.out.println(e.toString());
             throw e;
         }

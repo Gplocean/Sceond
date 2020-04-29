@@ -1,5 +1,7 @@
 package com.xzsd.app.AppOrder.entity;
 
+import java.util.List;
+
 /**
  * @Description 热门商品实体类
  * @Author 刘桂鹏
@@ -15,34 +17,45 @@ public class AppOrderInfo {
          * 页数
          */
         private int pageNum;
-        /**
-         * 购物车id
+    /**
+         * 店名
          */
+        private String storeName;
+        private String goodsPrice;
+        private String goodsCode;
+        private String goodsCount;
+        private String storeCode;
+        private String evaluate;
+        private String evaluateScore;
+        private String goodsPicture;
+        private String pictureNum;
         private String shopCode;
         /**
-         * 选择商品数量
+         * 详细地址
          */
-        private String goodsCount;
+        private String address;
         /**
-         * 商品id
+         * 订单商品数量
          */
-        private String goodsPath;
+        private int orderGoodsCount;
         /**
-         * 商品价格
+         * 订单价格
          */
-        private String goodsPrice;
+        private String orderPrice;
         /**
-         * 商品id
+         * 订单状态
          */
-        private String goodsCode;
+        private String orderState;
         /**
-         * 商品名
+         * 订单id
          */
-        private String goodsName;
+        private String orderCode;
         /**
-         * 书号
+         * 订单创建时间
          */
+        private String createTime;
 
+        private List<orderGoodsInfo> orderGoodsInfo;
         /**
          * 作废标记 0为正常，1为作废
          */
@@ -66,11 +79,20 @@ public class AppOrderInfo {
 
         /**
          * 版本号
+         *
          * @return
          */
-        private String Version;
+        private String version;
 
-        public int getPageSize() {
+        public List<orderGoodsInfo> getOrderGoodsInfo() {
+                return orderGoodsInfo;
+        }
+
+    public String getShopCode() {
+        return shopCode;
+    }
+
+    public int getPageSize() {
                 return pageSize;
         }
 
@@ -78,28 +100,64 @@ public class AppOrderInfo {
                 return pageNum;
         }
 
+        public String getStoreName() {
+                return storeName;
+        }
+
+        public String getEvaluate() {
+                return evaluate;
+        }
+
+        public String getEvaluateScore() {
+                return evaluateScore;
+        }
+
+        public String getGoodsPicture() {
+                return goodsPicture;
+        }
+
+        public String getPictureNum() {
+                return pictureNum;
+        }
+
+        public String getAddress() {
+                return address;
+        }
+
+        public String getGoodsPrice() {
+                return goodsPrice;
+        }
+
         public String getGoodsCode() {
                 return goodsCode;
-        }
-
-        public String getGoodsName() {
-                return goodsName;
-        }
-
-        public String getShopCode() {
-                return shopCode;
         }
 
         public String getGoodsCount() {
                 return goodsCount;
         }
 
-        public String getGoodsPath() {
-                return goodsPath;
+        public String getStoreCode() {
+                return storeCode;
         }
 
-        public String getGoodsPrice() {
-                return goodsPrice;
+        public int getOrderGoodsCount() {
+                return orderGoodsCount;
+        }
+
+        public String getOrderPrice() {
+                return orderPrice;
+        }
+
+        public String getOrderState() {
+                return orderState;
+        }
+
+        public String getOrderCode() {
+                return orderCode;
+        }
+
+        public String getCreateTime() {
+                return createTime;
         }
 
         public int getIsDeleted() {
@@ -123,7 +181,11 @@ public class AppOrderInfo {
         }
 
         public String getVersion() {
-                return Version;
+                return version;
+        }
+
+        public void setOrderGoodsInfo(List<orderGoodsInfo> orderGoodsInfo) {
+                this.orderGoodsInfo = orderGoodsInfo;
         }
 
         public void setPageSize(int pageSize) {
@@ -134,29 +196,68 @@ public class AppOrderInfo {
                 this.pageNum = pageNum;
         }
 
+        public void setStoreName(String storeName) {
+                this.storeName = storeName;
+        }
+
+        public void setEvaluate(String evaluate) {
+                this.evaluate = evaluate;
+        }
+
+        public void setEvaluateScore(String evaluateScore) {
+                this.evaluateScore = evaluateScore;
+        }
+
+        public void setGoodsPicture(String goodsPicture) {
+                this.goodsPicture = goodsPicture;
+        }
+
+        public void setPictureNum(String pictureNum) {
+                this.pictureNum = pictureNum;
+        }
+
+        public void setAddress(String address) {
+                this.address = address;
+        }
+
         public void setGoodsCode(String goodsCode) {
                 this.goodsCode = goodsCode;
         }
 
-        public void setGoodsName(String goodsName) {
-                this.goodsName = goodsName;
-        }
+    public void setShopCode(String shopCode) {
+        this.shopCode = shopCode;
+    }
 
-
-        public void setShopCode(String shopCode) {
-                this.shopCode = shopCode;
-        }
-
-        public void setGoodsCount(String goodsCount) {
+    public void setGoodsCount(String goodsCount) {
                 this.goodsCount = goodsCount;
         }
 
-        public void setGoodsPath(String goodsPath) {
-                this.goodsPath = goodsPath;
+        public void setStoreCode(String storeCode) {
+                this.storeCode = storeCode;
+        }
+
+        public void setOrderGoodsCount(int orderGoodsCount) {
+                this.orderGoodsCount = orderGoodsCount;
+        }
+
+        public void setOrderPrice(String orderPrice) {
+                this.orderPrice = orderPrice;
         }
 
         public void setGoodsPrice(String goodsPrice) {
                 this.goodsPrice = goodsPrice;
+        }
+
+        public void setOrderState(String orderState) {
+                this.orderState = orderState;
+        }
+
+        public void setOrderCode(String orderCode) {
+                this.orderCode = orderCode;
+        }
+
+        public void setCreateTime(String createTime) {
+                this.createTime = createTime;
         }
 
         public void setIsDeleted(int isDeleted) {
@@ -180,6 +281,8 @@ public class AppOrderInfo {
         }
 
         public void setVersion(String version) {
-                Version = version;
+                this.version = version;
         }
 }
+
+

@@ -32,7 +32,7 @@ public interface GoodsSortDao {
     int countGoodsSort(GoodsSortInfo goodsSortInfo);
 
     /**
-     * 新增商品
+     * 新增商品分类
      * @param goodsSortInfo
      * @return
      */
@@ -40,14 +40,14 @@ public interface GoodsSortDao {
     int addGoodsSort(GoodsSortInfo goodsSortInfo);
 
     /**
-     * 删除商品
+     * 删除商品分类
      * @param goodsSortInfo
      * @return
      */
-   GoodsSortInfo getGoodsSort(GoodsSortInfo goodsSortInfo);
+   List<GoodsSortInfo> getGoodsSort(GoodsSortInfo goodsSortInfo);
 
     /**
-     * 修改商品
+     * 修改商品分类
      * @param goodsSortInfo
      * @return
      */
@@ -59,7 +59,7 @@ public interface GoodsSortDao {
      * @param listCode
      * @return
      */
-    int deleteGoodsSort(@Param("listCode")List<String> listCode, @Param("goodsSortCode") String goodsSortCode);
+    int deleteGoodsSort( String goodsSortCode);
 
     /**
      * 统计商品分类数量
