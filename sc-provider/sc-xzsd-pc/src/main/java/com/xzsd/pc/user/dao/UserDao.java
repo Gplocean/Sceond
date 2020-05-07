@@ -55,4 +55,11 @@ public interface UserDao {
      * @return 修改结果
      */
     UserInfo getUserByUserCode(UserInfo userId);
+
+    /**
+     * 新增司机
+     * @param userInfo
+     * @return
+     */
+    int addDriver(UserInfo userInfo);
 }

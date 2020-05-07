@@ -3,24 +3,66 @@
 <mapper namespace="com.xzsd.pc.GuestControl.dao.GuestDao">
 
 
-    <!--客户列表-->
-    <select id="listGuestByPage" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="com.xzsd.pc.GuestControl.entity.GuestInfo">
+    <!--管理员客户列表-->
+  <select id="listGuestByPage" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="com.xzsd.pc.GuestControl.entity.GuestInfo">
 
-  select
+
+      select
       user_acct userAccount,
       user_name guestName,
       sex,
       phone telephone,
       email,
-      idCard guestIdCard,
+      id_card guestIdCard,
       role role
-  from  t_guest_management
-  where is_deleted =0
+      from  t_sys_user
+      where is_deleted =0
+      and role = 4
+      <if test="userAccount != null and userAccount != ''">
+          and user_acct like concat('%', #{userAccount}, '%')
+      </if>
+      <if test="guestName != null and guestName != ''">
+          and user_name like concat('%', #{guestName}, '%')
+      </if>
+    </select>
+
+    <!--店长客户列表-->
+    <select id="listGuest" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="com.xzsd.pc.GuestControl.entity.GuestInfo">
+
+        select
+        user_acct userAccount,
+        user_name guestName,
+        sex,
+        phone telephone,
+        email,
+        id_card guestIdCard,
+        role role
+        from  t_sys_user
+        where is_deleted =0
+        and role = 4
+        and invite_code = #{inviteCode}
         <if test="userAccount != null and userAccount != ''">
             and user_acct like concat('%', #{userAccount}, '%')
         </if>
         <if test="guestName != null and guestName != ''">
-        and user_name like concat('%', #{guestName}, '%')
+            and user_name like concat('%', #{guestName}, '%')
         </if>
+    </select>
+
+    <!--获取店长邀请码-->
+    <select id="getInvite" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="java.lang.String">
+        select
+        invite_code
+        from
+        t_sys_user
+        where user_code = #{guestCode}
+    </select>
+    <!--获取当前登录角色-->
+    <select id="getRole" parameterType="com.xzsd.pc.GuestControl.entity.GuestInfo" resultType="java.lang.String">
+        select
+        role
+        from
+        t_sys_user
+        where user_code = #{guestCode}
     </select>
 </mapper>

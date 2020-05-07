@@ -31,6 +31,13 @@ public interface DriverDao {
      */
 
     int addDriver(DriverInfo driverInfo);
+    /**
+     * 新增司机
+     * @param driverInfo
+     * @return
+     */
+
+    int addUser(DriverInfo driverInfo);
 
     /**
      * 显示司机详情

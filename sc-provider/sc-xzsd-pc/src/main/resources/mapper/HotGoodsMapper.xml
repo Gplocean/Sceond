@@ -43,21 +43,22 @@
     <!--查询热门商品列表-->
     <select id="listHotGoodsByPage" parameterType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo" resultType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo">
         select
-        hotGoods_num,
-        hotGoods_id hotGoodsCode,
-        goods_id goodsCode,
-        goods_name,
-        goods_price,
-        goods_introduction,
-        version
-        from t_hotgoods_management
-        where is_deleted = 0
+        a.hotGoods_num,
+        a.hotGoods_id hotGoodsCode,
+        b.goods_code goodsCode,
+        b.goods_name goodsName,
+        b.goods_sell_price goodsPrice,
+        b.goods_introduction goodsIntroduction,
+        a.version
+        from t_hotgoods_management a , t_goods_management b
+        where a.is_deleted = 0
         <if test="goodsName!= null and goodsName != ''">
-            and goods_name like concat('%',#{goodsName},'%')
+            and b.goods_name like concat('%',#{goodsName},'%')
         </if>
         <if test="goodsCode!= null and goodsCode != ''">
-            and goods_id like concat('%',#{goodsCode},'%')
+            and b.goods_code like concat('%',#{goodsCode},'%')
         </if>
+       and a.goods_id = b.goods_code
     </select>
     <!--查询热门商品数量-->
     <select id="getHotGoodsShowNum" parameterType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo" resultType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo" >
@@ -78,10 +79,13 @@
     <update id="updateHotGoods" parameterType="com.xzsd.pc.HotGoodsControl.entity.HotGoodsInfo" >
         update t_hotgoods_management
         set
+            hotGoods_id = #{hotGoodsCode},
             hotGoods_num = #{hotGoodsNum},
             goods_id = #{goodsCode},
              version = version + 1
-            where is_deleted = 0 and  hotGoods_id = #{hotGoodsCode}
+            where is_deleted = 0
+             and
+            hotGoods_id = #{hotGoodsCode}
             and version = #{version}
     </update>
     <!--删除热门商品-->

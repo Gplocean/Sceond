@@ -20,11 +20,19 @@ public class AppShopInfo {
          */
         private String shopCode;
         /**
+         * 门店id
+         */
+        private String storeCode;
+        /**
+         * 用户id
+         */
+        private String userCode;
+        /**
          * 选择商品数量
          */
         private String goodsCount;
         /**
-         * 商品id
+         * 商品图片
          */
         private String goodsPath;
         /**
@@ -40,13 +48,14 @@ public class AppShopInfo {
          */
         private String goodsName;
         /**
-         * 商品名
+         * 商品介绍
          */
         private String goodsIntroduction;
-        /**
-         * 书号
-         */
 
+        /**
+         * 邀请码
+         */
+        private String inviteCode;
         /**
          * 作废标记 0为正常，1为作废
          */
@@ -102,6 +111,22 @@ public class AppShopInfo {
                 return goodsPath;
         }
 
+        public String getStoreCode() {
+                return storeCode;
+        }
+
+        public String getUserCode() {
+                return userCode;
+        }
+
+        public String getGoodsIntroduction() {
+                return goodsIntroduction;
+        }
+
+        public String getInviteCode() {
+                return inviteCode;
+        }
+
         public String getGoodsPrice() {
                 return goodsPrice;
         }
@@ -146,6 +171,21 @@ public class AppShopInfo {
                 this.goodsName = goodsName;
         }
 
+        public void setStoreCode(String storeCode) {
+                this.storeCode = storeCode;
+        }
+
+        public void setUserCode(String userCode) {
+                this.userCode = userCode;
+        }
+
+        public void setGoodsIntroduction(String goodsIntroduction) {
+                this.goodsIntroduction = goodsIntroduction;
+        }
+
+        public void setInviteCode(String inviteCode) {
+                this.inviteCode = inviteCode;
+        }
 
         public void setShopCode(String shopCode) {
                 this.shopCode = shopCode;

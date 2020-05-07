@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzsd.app.AppRole.dao.AppRoleDao">
+
+    <!--新增用户-->
+    <insert id="addUser" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+        insert into t_sys_user
+        (user_code,
+         user_name,
+         user_acct,
+         user_pwd,
+         id_card,
+         sex,
+         phone,
+         email,
+         invite_code,
+         image,
+         role,
+         is_deleted,
+         sort_no,
+         gmt_create,
+         create_by,
+         gmt_modified,
+         last_modified_by,
+         version)
+        values
+           (#{userCode},
+            #{userName},
+            #{userAcct},
+            #{userPwd},
+            #{idCard},
+            #{sex},
+            #{phone},
+            #{email},
+            #{inviteCode},
+            #{userPicture},
+            4,
+            #{isDeleted},
+            0,
+            now(),
+            #{createBy},
+            now(),
+            #{lastModifiedBy},
+            0)
+    </insert>
+
+    <!--获取用户信息-->
+    <select id="getUser" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo" resultType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+        select
+        user_code userCode,
+        user_name userName,
+        user_acct userAcct,
+        user_pwd userPwd,
+        id_card idCard,
+        sex sex,
+        phone phone,
+        email email,
+        image userPicture,
+        role role ,
+        version version,
+        invite_code inviteCode
+        from t_sys_user
+        where user_code = #{userCode}
+        and is_deleted = 0
+    </select>
+    <!--获取司机信息-->
+    <select id="getDriver" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo" resultType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+        select
+        a.driver_id userCode,
+        a.driver_name userName,
+        a.driver_acct userAcct,
+        a.driver_pwd userPwd,
+        a.driver_id_card idCard,
+        b.sex sex,
+        b.phone phone,
+        b.email email,
+        a.driver_Image userPicture,
+        b.role role,
+        a.version version
+        from t_driver_information a ,t_sys_user b
+        where a.driver_id =b.user_code and b.user_code =#{userCode}
+        and a.is_deleted = 0
+        and b.is_deleted = 0
+    </select>
+    <!--获取店长信息-->
+    <select id="getHost" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo" resultType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+        select
+        a.user_code userCode,
+        a.user_name userName,
+        a.user_acct userAcct,
+        a.user_pwd userPwd,
+        b.store_id storeCode,
+        b.store_name storeName,
+        b.store_invition_code inviteCode,
+        a.image userPicture,
+        a.role role,
+        a.version version,
+        b.address address
+        from t_sys_user a, t_store_information b
+        where a.user_code = #{userCode} and a.user_code=b.user_id
+        and b.is_deleted = 0
+    </select>
+<!--修改邀请码-->
+    <update id="updateInviteCode" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+      update t_sys_user
+      set
+      invite_code = #{inviteCode},
+      version = version + 1,
+      gmt_modified = now()
+      where is_deleted = 0
+      and user_code = #{userCode}
+    </update>
+    <!--修改密码-->
+    <update id="updatePwd" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+      update t_sys_user
+      set
+      user_pwd = #{userNewPwd},
+      version = version + 1,
+      gmt_modified = now()
+      where is_deleted = 0 and
+      user_code = #{userCode}
+    </update>
+
+    <!--获取当前角色-->
+    <select id="getRole" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo" resultType="com.xzsd.app.AppRole.entity.AppRoleInfo">
+        select
+        role
+        from t_sys_user
+        where user_code = #{userCode}
+    </select>
+    <!--获取当前角色密码-->
+    <select id="getPwd" parameterType="com.xzsd.app.AppRole.entity.AppRoleInfo" resultType="java.lang.String">
+        select
+        user_pwd  userPwd
+        from t_sys_user
+        where user_code = #{userCode}
+    </select>
+</mapper>

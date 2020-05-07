@@ -31,6 +31,10 @@ public class UserInfo {
      */
     private String userAcct;
     /**
+     * 用户登录名
+     */
+    private String userPicture;
+    /**
      * 用户密码
      */
     private String userPassword;
@@ -45,11 +49,15 @@ public class UserInfo {
     /**
      * 手机号码
      */
-    private String phone;
+    private long phone;
     /**
      * 电子邮件
      */
     private String email;
+    /**
+     * 电子邮件
+     */
+    private String inviteCode;
     /**
      * 备注
      */
@@ -93,6 +101,10 @@ public class UserInfo {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getInviteCode() {
+        return inviteCode;
     }
 
     public int getPageNum() {
@@ -139,6 +151,9 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
+    public String getUserPicture() {
+        return userPicture;
+    }
 
     public String getIdCard() {
         return idCard;
@@ -148,11 +163,11 @@ public class UserInfo {
         this.idCard = idCard;
     }
 
-    public String getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
@@ -230,6 +245,14 @@ public class UserInfo {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
     }
 
     public int getSex() {

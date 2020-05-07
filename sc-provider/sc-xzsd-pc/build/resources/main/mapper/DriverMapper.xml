@@ -14,15 +14,19 @@
         province,
         city,
         district,
+        store_id,
+        driver_image,
         is_deleted,
         gmt_create,
         create_by,
         gmt_modified,
         last_modified_by,
-        version
+        version,
+        role,
+        sex
     )
     values (
-    now(),
+    #{driverCode},
     #{driverName},
     #{phone},
     #{idCard},
@@ -31,12 +35,17 @@
     #{provinceCode},
     #{cityCode},
     #{areaCode},
+    #{storeCode},
+    #{driverPicture},
     0,
     now(),
     #{createBy},
     now(),
     #{lastModifiedBy},
-    0
+    0,
+    3,
+    #{sex}
+
     )
 </insert>
     <!--查询司机分页-->
@@ -89,7 +98,7 @@
         a.driver_phone phone,
         a.driver_acct driverAccount, /*司机账号*/
         a.driver_pwd driverPwd,
-        a.driver_image driverImage,
+        a.driver_image driverPicture,
         a.driver_id_card idCard,
         a.province provinceCode,
         a.city cityCode,
@@ -113,11 +122,12 @@
         driver_phone = #{phone},
         driver_acct = #{driverAccount},
         driver_pwd = #{driverPwd},
-        driver_image = #{driverImage},
+        driver_image = #{driverPicture},
         driver_id_card =#{idCard},
         province = #{provinceCode},
         city = #{cityCode},
         district = #{areaCode},
+        store_id = #{storeCode},
         version = version +1
         where  is_deleted = 0
         and version = #{version}
@@ -141,9 +151,9 @@
     <!--统计司机id数量-->
     <select id="countDriverCode" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" resultType="integer" >
 
-        select count(driver_id_card)
+        select count(driver_name)
         from t_driver_information
-        where driver_id_card = #{idCard}
+        where driver_name = #{driverName}
         and is_deleted = 0
     </select>
 <!--查询省市区-->
@@ -156,6 +166,44 @@
        parent_id parentCode
        from province
        where parent_id = #{parentCode}
-
     </select>
+
+    <insert id="addUser" parameterType="com.xzsd.pc.DriverControl.entity.DriverInfo" >
+    insert into t_sys_user
+    (
+        user_code,
+        user_name,
+        phone,
+        id_card,
+        user_acct,
+        user_pwd,
+        image,
+        is_deleted,
+        gmt_create,
+        create_by,
+        gmt_modified,
+        last_modified_by,
+        version,
+        role,
+        #{sex}
+    )
+    values (
+    #{driverCode},
+    #{driverName},
+    #{phone},
+    #{idCard},
+    #{driverAccount},
+    #{driverPwd},
+    #{driverPicture},
+    0,
+    now(),
+    #{createBy},
+    now(),
+    #{lastModifiedBy},
+    0,
+    3,
+    #{sex}
+    )
+</insert>
+
 </mapper>

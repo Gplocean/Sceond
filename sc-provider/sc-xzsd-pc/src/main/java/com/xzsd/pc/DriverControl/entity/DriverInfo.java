@@ -21,6 +21,14 @@ public class DriverInfo {
          */
         private String driverCode;
         /**
+         * 司机id
+         */
+        private String username;
+        /**
+         * 司机id
+         */
+        private String password;
+        /**
          * 司机名
          */
         private String driverName;
@@ -35,7 +43,7 @@ public class DriverInfo {
         /**
          * 司机头像
          */
-        private String driverImage;
+        private String driverPicture;
         /**
          * 密码
          */
@@ -72,6 +80,14 @@ public class DriverInfo {
          * 角色
          */
         private String role;
+        /**
+         * 性别
+         */
+        private String sex;
+        /**
+         * 角色
+         */
+        private String storeCode;
 
         /**
          * 作废标记 0为正常，1为作废
@@ -128,13 +144,11 @@ public class DriverInfo {
                 return cityName;
         }
 
-        public String getAreaName() {
-                return areaName;
-        }
+        public String getAreaName() { return areaName; }
 
-        public String getDriverImage() {
-                return driverImage;
-        }
+        public String getDriverPicture() { return driverPicture; }
+
+        public void setDriverPicture(String driverPicture) { this.driverPicture = driverPicture; }
 
         public String getDriverPwd() {
                 return driverPwd;
@@ -146,6 +160,22 @@ public class DriverInfo {
 
         public String getVersion() {
                 return version;
+        }
+
+        public String getStoreCode() {
+                return storeCode;
+        }
+
+        public String getUsername() {
+                return username;
+        }
+
+        public String getSex() {
+                return sex;
+        }
+
+        public String getPassword() {
+                return password;
         }
 
         public String getRole() {
@@ -242,8 +272,20 @@ public class DriverInfo {
                 this.driverAccount = driverAccount;
         }
 
-        public void setDriverImage(String driverImage) {
-                this.driverImage = driverImage;
+        public void setStoreCode(String storeCode) {
+                this.storeCode = storeCode;
+        }
+
+        public void setUsername(String username) {
+                this.username = username;
+        }
+
+        public void setSex(String sex) {
+                this.sex = sex;
+        }
+
+        public void setPassword(String password) {
+                this.password = password;
         }
 
         public void setDriverPwd(String driverPwd) {

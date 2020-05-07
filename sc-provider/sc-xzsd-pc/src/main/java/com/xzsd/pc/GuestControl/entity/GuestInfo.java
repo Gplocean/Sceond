@@ -31,6 +31,10 @@ public class GuestInfo {
          */
         private String guestName;
         /**
+         * 客户名
+         */
+        private String inviteCode;
+        /**
          * 客户身份证号
          */
         private String guestIdCard;
@@ -50,7 +54,7 @@ public class GuestInfo {
         /**
          * 客户角色
          */
-        private  int role;
+        private  String role;
 
         /**
          * 作废标记 0为正常，1为作废
@@ -90,6 +94,10 @@ public class GuestInfo {
                 return guestCode;
         }
 
+        public String getInviteCode() {
+                return inviteCode;
+        }
+
         public String getUserAccount() {
                 return userAccount;
         }
@@ -114,7 +122,7 @@ public class GuestInfo {
                 return email;
         }
 
-        public int getRole() {
+        public String getRole() {
                 return role;
         }
 
@@ -178,7 +186,7 @@ public class GuestInfo {
                 this.email = email;
         }
 
-        public void setRole(int role) {
+        public void setRole(String role) {
                 this.role = role;
         }
 
@@ -196,6 +204,10 @@ public class GuestInfo {
 
         public void setGmtModified(Date gmtModified) {
                 this.gmtModified = gmtModified;
+        }
+
+        public void setInviteCode(String inviteCode) {
+                this.inviteCode = inviteCode;
         }
 
         public void setLastModifiedBy(String lastModifiedBy) {

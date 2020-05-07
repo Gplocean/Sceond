@@ -4,6 +4,7 @@ package com.xzsd.pc.GoodsSortControl.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.util.StringUtil;
 import com.xzsd.pc.GoodsControl.entity.GoodsInfo;
 import com.xzsd.pc.GoodsSortControl.dao.GoodsSortDao;
 import com.xzsd.pc.GoodsSortControl.entity.GoodsSortInfo;
@@ -11,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class GoodsSortService {
-    @Autowired
+    @Resource
 
     private GoodsSortDao goodsSortDao;
     @Transactional(rollbackFor = Exception.class)
@@ -34,6 +36,8 @@ public class GoodsSortService {
         if(countSortName !=0){
             return  AppResponse.success("分类已存在，请重新输入");}
         goodsSortInfo.setIsDeleted(0);
+        String code = StringUtil.getCommonCode(2);
+        goodsSortInfo.setClassCode(code);
         int count =goodsSortDao.addGoodsSort(goodsSortInfo);
         if (count == 0) {
             return AppResponse.success("新增失败");
@@ -61,7 +65,7 @@ public class GoodsSortService {
 
     /**
      * 删除商品分类
-     * @param goodsSortInfo
+     * @param GoodsSortCode
      * @return
      * @author 刘桂鹏
      *

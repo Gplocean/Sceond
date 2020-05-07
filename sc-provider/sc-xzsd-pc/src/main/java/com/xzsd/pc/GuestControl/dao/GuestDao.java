@@ -20,8 +20,25 @@ public interface GuestDao {
      * @return
      */
     List<GuestInfo> listGuestByPage(GuestInfo guestInfo);
+    /**
+     *查询店长用户列表
+     * @param guestInfo
+     * @return
+     */
+    List<GuestInfo> listGuest(GuestInfo guestInfo);
 
+    /**
+     * 查询邀请码
+     * @param guestInfo
+     * @return
+     */
 
+    String getInvite(String guestInfo);
+    /**
+     * 查询当前角色
+     * @param guestInfo
+     * @return
+     */
 
-
+    String getRole(String guestInfo);
 }

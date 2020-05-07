@@ -2,7 +2,7 @@ package com.xzsd.pc.topOfColumn.entity;
 
 
 /**
- * @author xin
+ * @author liuguipeng
  */
 public class TopOfColumnInfo {
     /**

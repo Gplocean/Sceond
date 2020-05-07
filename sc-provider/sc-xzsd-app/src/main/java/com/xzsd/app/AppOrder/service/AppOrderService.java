@@ -5,6 +5,8 @@ package com.xzsd.app.AppOrder.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
+import com.neusoft.util.StringUtil;
 import com.xzsd.app.AppOrder.dao.AppOrderDao;
 import com.xzsd.app.AppOrder.entity.AppOrderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class AppOrderService {
-    @Autowired
+    @Resource
 
     private AppOrderDao appOrderDao;
 
@@ -50,7 +53,8 @@ public class AppOrderService {
      * @author liuguipeng
      */
     public AppResponse listEvaluate(AppOrderInfo appOrderInfo){
-
+        String userCode = SecurityUtils.getCurrentUserId();
+        appOrderInfo.setUserAcct(userCode);
         PageHelper.startPage(appOrderInfo.getPageNum(), appOrderInfo.getPageSize());
         List<AppOrderInfo> appOrderInfoList = appOrderDao.listEvaluate(appOrderInfo);
         PageInfo<AppOrderInfo> pageData = new PageInfo<>(appOrderInfoList);
@@ -86,6 +90,18 @@ public class AppOrderService {
     public AppResponse addOrder(AppOrderInfo appOrderInfo){
 
         appOrderInfo.setIsDeleted(0);
+
+          appOrderInfo.setOrderCode(StringUtil.getCommonCode(2));
+          String userCode = SecurityUtils.getCurrentUserId();
+          appOrderInfo.setUserCode(userCode);
+          //设置账号
+          String userAcct = appOrderDao.getUserAcct(userCode);
+          appOrderInfo.setUserAcct(userAcct);
+          //设置手机
+         String phone = appOrderDao.getUserPhone(userCode);
+          appOrderInfo.setPhone(phone);
+          //查询订单对应的购物车
+
         String shopCode = appOrderInfo.getShopCode();
         int count = appOrderDao.addOrder(appOrderInfo);
         if (count == 0) {
@@ -135,6 +151,7 @@ public class AppOrderService {
         else
             return AppResponse.success("新增成功");
     }
+
 
 
 }

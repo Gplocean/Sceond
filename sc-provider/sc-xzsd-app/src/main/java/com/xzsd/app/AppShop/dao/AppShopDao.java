@@ -40,5 +40,11 @@ public interface AppShopDao {
      */
     int addAppShop(AppShopInfo appShopInfo);
 
+    /**
+     * 获取当前用户邀请码
+     * @param appShopInfo
+     * @return
+     */
+    String getInviteCode(String appShopInfo);
 
 }

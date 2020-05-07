@@ -8,6 +8,7 @@
         store_name,
         store_phone,
         user_id,
+        store_invition_code,
         business_license_code,
         province,
         city,
@@ -18,13 +19,17 @@
         create_by,
         gmt_modified,
         last_modified_by,
-        version
+        version,
+        driver_id,
+        manager_name
+
         )
          values (
         now(),
         #{storeName},
         #{phone},
         #{hostCode},
+        #{inviteCode},
         #{license},
         #{provinceCode},
         #{cityCode},
@@ -35,7 +40,9 @@
         #{createBy},
         now(),
         #{lastModifiedBy},
-        0
+        0,
+        #{driverCode},
+        #{hostName}
         )
     </insert>
     <!--查询门店详情-->
@@ -111,6 +118,8 @@
         city = #{cityCode},
         district = #{areaCode},
         address = #{address},
+        store_invition_code = #{inviteCode},
+        driver_id = #{driverCode},
         version = version+1,
         gmt_modified = now(),
         last_modified_by  = #{lastModifiedBy}
@@ -148,6 +157,25 @@
        parent_id parentCode
        from province
        where parent_id = #{parentCode}
-
     </select>
+
+    <!--查询店长姓名-->
+    <select id="getHostName" parameterType="com.xzsd.pc.StoreControl.entity.StoreInfo" resultType="java.lang.String" >
+
+        select user_name
+        from t_sys_user
+        where user_code = #{hostCode}
+        and is_deleted = 0
+    </select>
+
+    <!--删除门店-->
+    <update id="updateInviteCode" parameterType="com.xzsd.pc.StoreControl.entity.StoreInfo" >
+        update t_sys_user
+        set
+        invite_code = #{inviteCode},
+        version = version + 1,
+        last_modified_by = now()
+        where user_code = #{hostCode}
+    </update>
+
 </mapper>

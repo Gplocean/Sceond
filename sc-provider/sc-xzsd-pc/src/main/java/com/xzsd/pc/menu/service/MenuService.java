@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @ClassName MenuService
  * @Description 菜单管理
- * @Author zhu.qf@neusoft.com
+ * @Author liuguipeng
  * @Date 2018/11/28
  */
 @Service
@@ -69,10 +69,12 @@ public class MenuService {
         if(menuInfo.getRole().equals("2")){
             List<MenuInfo> menuInfoList = menuDao.listMenuHome2(menuInfo);
             return AppResponse.success("查询成功！",menuInfoList);
-        }else {
+        }
+        else if(menuInfo.getRole().equals("1")){
             List<MenuInfo> menuInfoList = menuDao.listMenuHome1(menuInfo);
             return AppResponse.success("查询成功！",menuInfoList);
         }
+              return AppResponse.success();
     }
 
     /**

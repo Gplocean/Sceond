@@ -5,21 +5,24 @@
     <resultMap id="AppHostInfo" type="com.xzsd.app.AppHost.entity.AppHostInfo">
         <id column="order_id" property="orderCode" jdbcType="VARCHAR"/>
         <result column="order_price" property="orderPrice" jdbcType="VARCHAR"/>
-        <result column="goods_count" property="goodsCount" jdbcType="VARCHAR"/>
+        <result column="goods_count" property="orderGoodsCount" jdbcType="VARCHAR"/>
         <result column="order_status" property="orderState" jdbcType="VARCHAR"/>
         <result column="user_code" property="userCode" jdbcType="VARCHAR"/>
         <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="order_name" property="userName" jdbcType="VARCHAR"/>
         <result column="version" property="version" jdbcType="VARCHAR"/>
-        <collection property="hostGoodsInfo" ofType="com.xzsd.app.AppHost.entity.hostGoodsInfo">
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="gmt_create" property="createTime" jdbcType="VARCHAR"/>
+        <collection property="orderGoodsInfo" ofType="com.xzsd.app.AppHost.entity.orderGoodsInfo">
             <id column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
             <result column="goods_sell_price" property="goodsPrice" jdbcType="VARCHAR"/>
             <result column="goods_picture" property="goodsPicture" jdbcType="VARCHAR"/>
             <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
             <result column="goods_count" property="goodsCount" jdbcType="VARCHAR"/>
-            <result column="introduction" property="goodsIntroduction" jdbcType="VARCHAR"/>
-            <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
-            <result column="address" property="address" jdbcType="VARCHAR"/>
+            <result column="goods_introduction" property="goodsIntroduction" jdbcType="VARCHAR"/>
+
+
         </collection>
     </resultMap>
     <select id="listHostOrder" resultMap="AppHostInfo">
@@ -27,8 +30,8 @@
         a.order_id,
         a.order_status,
         b.user_code,
-        b.user_name,
-        b.phone,
+        a.order_name,
+        a.phone,
         a.order_price,
         a.goods_count,
         a.version,
@@ -37,13 +40,18 @@
         c.goods_introduction ,
         c.goods_sell_price ,
         a.goods_count ,
-        c.goods_code
+        c.goods_code,
+        c.goods_introduction,
+        a.gmt_create
         from t_order_management a,t_sys_user b, t_goods_management c
-        where a.user_id =b.user_code and a.goods_id = c.goods_code
-
+        where b.user_code = #{userCode} and a.goods_id = c.goods_code and b.invite_code = a.invite_id and a.store_id = #{storeCode}
+        <if test="orderState != null and orderState != ''">
+            and a.order_status like concat('%', #{orderState}, '%')
+        </if>
+        and a.is_deleted = 0
     </select>
     <!--修改店长订单状态-->
-    <update id="updateHostOrder" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo">
+    <update id="updateOrder" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo">
         update t_order_management
         set
         order_status = #{orderState},
@@ -54,13 +62,13 @@
     </update>
 
 <!--查询店长订单详情-->
-    <select id="listHostOrder" resultMap="AppHostInfo">
+    <select id="getOrder" resultMap="AppHostInfo">
         select
         a.order_id,
         a.order_status,
         b.user_code,
-        b.user_name,
-        b.phone,
+        a.order_name ,
+        a.phone phone,
         a.order_price,
         a.goods_count,
         a.version,
@@ -71,7 +79,8 @@
         a.goods_count ,
         c.goods_code,
         d.store_name,
-        d.address
+        d.address,
+        a.gmt_create
         from t_order_management a,t_sys_user b, t_goods_management c,t_store_information d
         where a.user_id =b.user_code and a.goods_id = c.goods_code and c.store_code = d.store_id
          and order_id = #{orderCode}
@@ -79,9 +88,20 @@
     <!--查询门店下司机信息-->
     <select id="listDriver" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo" resultType="com.xzsd.app.AppHost.entity.AppHostInfo">
         select
-        a.driver_name,
-        a.phone
-        from t_driver_information a,t_store_information b
-        where a.store_id = b.store_id
+        driver_name userName,
+        driver_phone phone
+        from t_driver_information
+        where
+        store_id = #{storeCode} and
+        is_deleted = 0
+    </select>
+    <!--查询邀请码-->
+    <select id="getStoreCode" parameterType="com.xzsd.app.AppHost.entity.AppHostInfo" resultType="java.lang.String">
+        select
+        store_id
+        from t_store_information
+        where
+        user_id = #{userCode} and
+        is_deleted = 0
     </select>
 </mapper>

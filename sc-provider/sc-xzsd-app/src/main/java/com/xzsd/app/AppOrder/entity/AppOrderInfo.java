@@ -17,19 +17,66 @@ public class AppOrderInfo {
          * 页数
          */
         private int pageNum;
-    /**
+        /**
          * 店名
          */
         private String storeName;
+        /**
+         * 用户账号
+         */
+        private String userAcct;
+        /**
+         * 用户图片
+         */
+        private String userPicture;
+        /**
+         * 商品图片
+         */
         private String goodsPrice;
+        /**
+         * 商品id
+         */
         private String goodsCode;
+        /**
+         * 商品数量
+         */
         private String goodsCount;
+        /**
+         * 门店编号
+         */
         private String storeCode;
+        /**
+         * 评价
+         */
         private String evaluate;
+        /**
+         * 评价等级
+         */
         private String evaluateScore;
+        /**
+         * 商品图片
+         */
         private String goodsPicture;
+        /**
+         * 图片序号
+         */
         private String pictureNum;
+        /**
+         * 购物车id
+         */
         private String shopCode;
+        /**
+         * 邀请码
+         */
+        private String inviteCode;
+        /**
+         * 下单人id
+         */
+        private String userCode;
+        /**
+         * 下单人手机
+         */
+        private String phone;
         /**
          * 详细地址
          */
@@ -76,10 +123,8 @@ public class AppOrderInfo {
          * 更新者
          */
         private String lastModifiedBy;
-
         /**
          * 版本号
-         *
          * @return
          */
         private String version;
@@ -96,7 +141,15 @@ public class AppOrderInfo {
                 return pageSize;
         }
 
-        public int getPageNum() {
+    public String getUserAcct() {
+        return userAcct;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public int getPageNum() {
                 return pageNum;
         }
 
@@ -124,7 +177,15 @@ public class AppOrderInfo {
                 return address;
         }
 
-        public String getGoodsPrice() {
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getGoodsPrice() {
                 return goodsPrice;
         }
 
@@ -180,7 +241,11 @@ public class AppOrderInfo {
                 return lastModifiedBy;
         }
 
-        public String getVersion() {
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getVersion() {
                 return version;
         }
 
@@ -228,11 +293,23 @@ public class AppOrderInfo {
         this.shopCode = shopCode;
     }
 
+    public String getInviteCode() {
+        return inviteCode;
+    }
+
     public void setGoodsCount(String goodsCount) {
                 this.goodsCount = goodsCount;
         }
 
-        public void setStoreCode(String storeCode) {
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setStoreCode(String storeCode) {
                 this.storeCode = storeCode;
         }
 
@@ -280,7 +357,15 @@ public class AppOrderInfo {
                 this.lastModifiedBy = lastModifiedBy;
         }
 
-        public void setVersion(String version) {
+    public void setUserAcct(String userAcct) {
+        this.userAcct = userAcct;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
+    }
+
+    public void setVersion(String version) {
                 this.version = version;
         }
 }

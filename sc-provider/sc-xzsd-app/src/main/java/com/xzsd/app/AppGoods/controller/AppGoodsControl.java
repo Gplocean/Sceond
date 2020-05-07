@@ -45,7 +45,7 @@ public class AppGoodsControl {
      * @param appGoodsInfo
      * @return
      */
-    @PostMapping("/getOneClassifyList")
+    @PostMapping("/getOneGoodsClassify")
     public AppResponse getOneClassifyList(AppGoodsInfo appGoodsInfo) {
         try {
             return appGoodsService.getOneClassifyList(appGoodsInfo);
@@ -62,7 +62,7 @@ public class AppGoodsControl {
      * @param appGoodsInfo
      * @return
      */
-    @PostMapping("/getTwoClassifyList")
+    @PostMapping("/getTwoGoodsClassify")
     public AppResponse getTwoClassifyList(AppGoodsInfo appGoodsInfo) {
         try {
             return appGoodsService.getTwoClassifyList(appGoodsInfo);

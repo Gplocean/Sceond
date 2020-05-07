@@ -19,19 +19,19 @@ public class IndexInfo {
         /**
          * 首页轮播图路径
          */
-        private int slideShowPath;
+        private int pictureNum;
         /**
          * 商品id
          */
         private String goodsCode;
         /**
-         * 商品名
+         * 商品id
          */
         private String goodsName;
         /**
          * 商品图片路径
          */
-        private String goodsImagePath;
+        private String goodsPath;
         /**
          * 司机头像
          */
@@ -71,20 +71,22 @@ public class IndexInfo {
                 return pageNum;
         }
 
-        public int getSlideShowPath() {
-                return slideShowPath;
-        }
+
 
         public String getGoodsCode() {
                 return goodsCode;
         }
 
-        public String getGoodsName() {
-                return goodsName;
+        public int getPictureNum() {
+                return pictureNum;
         }
 
-        public String getGoodsImagePath() {
-                return goodsImagePath;
+        public String getGoodsPath() {
+                return goodsPath;
+        }
+
+        public String getGoodsName() {
+                return goodsName;
         }
 
         public String getGoodsPrice() {
@@ -123,20 +125,24 @@ public class IndexInfo {
                 this.pageNum = pageNum;
         }
 
-        public void setSlideShowPath(int slideShowPath) {
-                this.slideShowPath = slideShowPath;
-        }
+
 
         public void setGoodsCode(String goodsCode) {
                 this.goodsCode = goodsCode;
         }
 
-        public void setGoodsName(String goodsName) {
-                this.goodsName = goodsName;
+        public void setPictureNum(int pictureNum) {
+                this.pictureNum = pictureNum;
         }
 
-        public void setGoodsImagePath(String goodsImagePath) {
-                this.goodsImagePath = goodsImagePath;
+
+        public void setGoodsPath(String goodsPath) {
+                this.goodsPath = goodsPath;
+        }
+
+
+        public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
         }
 
         public void setGoodsPrice(String goodsPrice) {

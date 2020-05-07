@@ -53,8 +53,6 @@ public class AppGoodsService {
 
     }
 
-
-
     /**
      * 查询商品详情
      * @param appGoodsInfo

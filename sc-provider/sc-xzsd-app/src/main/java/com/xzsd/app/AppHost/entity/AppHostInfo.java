@@ -34,6 +34,15 @@ public class AppHostInfo {
          */
         private String orderState;
         /**
+         * 订单状态
+         */
+        private String inviteCode;
+        /**
+         * 订单数量
+         */
+        private String orderGoodsCount;
+
+        /**
          * 用户id
          */
         private String userCode;
@@ -41,6 +50,10 @@ public class AppHostInfo {
          * 用户名
          */
         private String userName;
+        /**
+         * 创建时间
+         */
+        private String createTime;
         /**
          * 用户手机
          */
@@ -57,6 +70,14 @@ public class AppHostInfo {
          * 商品id
          */
         private String goodsCode;
+        /**
+         * 门店编号
+         */
+        private String storeCode;
+        /**
+         * 商品图片
+         */
+        private String goodsPicture;
 
         /**
          * 作废标记 0为正常，1为作废
@@ -85,7 +106,7 @@ public class AppHostInfo {
          */
         private String version;
 
-        List<hostGoodsInfo> hostGoodsInfo;
+        List<orderGoodsInfo> orderGoodsInfo;
 
         public int getPageSize() {
                 return pageSize;
@@ -111,8 +132,8 @@ public class AppHostInfo {
                 return address;
         }
 
-        public List<AppHost.entity.hostGoodsInfo> getHostGoodsInfo() {
-                return hostGoodsInfo;
+        public List<orderGoodsInfo> getOrderGoodsInfo() {
+                return orderGoodsInfo;
         }
 
         public String getOrderState() {
@@ -139,6 +160,14 @@ public class AppHostInfo {
                 return goodsCount;
         }
 
+        public String getCreateTime() {
+                return createTime;
+        }
+
+        public String getInviteCode() {
+                return inviteCode;
+        }
+
         public int getIsDeleted() {
                 return isDeleted;
         }
@@ -161,6 +190,10 @@ public class AppHostInfo {
 
         public String getVersion() {
                 return version;
+        }
+
+        public String getStoreCode() {
+                return storeCode;
         }
 
         public void setPageSize(int pageSize) {
@@ -195,8 +228,16 @@ public class AppHostInfo {
                 this.phone = phone;
         }
 
-        public void setHostGoodsInfo(List<AppHost.entity.hostGoodsInfo> hostGoodsInfo) {
-                this.hostGoodsInfo = hostGoodsInfo;
+        public String getOrderGoodsCount() {
+                return orderGoodsCount;
+        }
+
+        public void setOrderGoodsInfo(List<orderGoodsInfo> orderGoodsInfo) {
+                this.orderGoodsInfo = orderGoodsInfo;
+        }
+
+        public String getGoodsPicture() {
+                return goodsPicture;
         }
 
         public void setStoreName(String storeName) {
@@ -209,6 +250,14 @@ public class AppHostInfo {
 
         public void setOrderPrice(String orderPrice) {
                 this.orderPrice = orderPrice;
+        }
+
+        public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+        }
+
+        public void setInviteCode(String inviteCode) {
+                this.inviteCode = inviteCode;
         }
 
         public void setGoodsCount(String goodsCount) {
@@ -233,6 +282,18 @@ public class AppHostInfo {
 
         public void setLastModifiedBy(String lastModifiedBy) {
                 this.lastModifiedBy = lastModifiedBy;
+        }
+
+        public void setGoodsPicture(String goodsPicture) {
+                this.goodsPicture = goodsPicture;
+        }
+
+        public void setStoreCode(String storeCode) {
+                this.storeCode = storeCode;
+        }
+
+        public void setOrderGoodsCount(String orderGoodsCount) {
+                this.orderGoodsCount = orderGoodsCount;
         }
 
         public void setVersion(String version) {

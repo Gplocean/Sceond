@@ -21,6 +21,7 @@ public class orderGoodsInfo {
      * 商品id
      */
     private  String goodsCode;
+    private String storeCode;
     /**
      * 商品数量
      */
@@ -40,6 +41,10 @@ public class orderGoodsInfo {
 
     public String getGoodsCode() {
         return goodsCode;
+    }
+
+    public String getStoreCode() {
+        return storeCode;
     }
 
     public int getGoodsCount() {
@@ -68,6 +73,10 @@ public class orderGoodsInfo {
 
     public void setGoodsIntroduction(String goodsIntroduction) {
         this.goodsIntroduction = goodsIntroduction;
+    }
+
+    public void setStoreCode(String storeCode) {
+        this.storeCode = storeCode;
     }
 
     public void setGoodsCount(int goodsCount) {

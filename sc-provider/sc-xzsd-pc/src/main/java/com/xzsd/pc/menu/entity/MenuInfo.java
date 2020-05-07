@@ -80,6 +80,7 @@ public class MenuInfo {
         this.menuRemark = menuRemark;
     }
 
+
     public String getRole() {
         return role;
     }

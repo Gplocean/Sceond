@@ -41,7 +41,7 @@ public class GoodsInfo {
     /**
      * 一级分类
      */
-    private int primaryClass;
+    private String primaryClass;
     /**
      * 二级分类
      */
@@ -95,6 +95,10 @@ public class GoodsInfo {
      * 父类id
      */
     private  String parentCode;
+    /**
+     * 父类id
+     */
+    private  String className;
 
 
     /**
@@ -214,6 +218,10 @@ public class GoodsInfo {
         return secondSort;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
     public String getGoodsPricing() {
         return goodsPricing;
     }
@@ -230,7 +238,7 @@ public class GoodsInfo {
         return goodsSales;
     }
 
-    public int getPrimaryClass() {
+    public String getPrimaryClass() {
         return primaryClass;
     }
 
@@ -310,7 +318,7 @@ public class GoodsInfo {
         this.goodsSales = goodsSales;
     }
 
-    public void setPrimaryClass(int primaryClass) {
+    public void setPrimaryClass(String primaryClass) {
         this.primaryClass = primaryClass;
     }
 
@@ -326,6 +334,9 @@ public class GoodsInfo {
         this.goodsIntroduction = goodsIntroduction;
     }
 
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public void setGoodsStatus(String goodsStatus) {
         this.goodsStatus = goodsStatus;

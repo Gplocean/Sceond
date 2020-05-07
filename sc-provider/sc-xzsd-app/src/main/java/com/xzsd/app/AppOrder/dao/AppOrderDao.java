@@ -60,6 +60,15 @@ public interface AppOrderDao {
      * @return
      */
     int deleteShop( String orderCode);
+
+    /**
+     * 查询购物车编号
+     * @param shopCode
+     * @return
+     */
+    String getUserAcct(String shopCode);
+
+    String getUserPhone(String shopCode);
 }
 
 

@@ -5,6 +5,7 @@
     <insert id="addAppShop" parameterType="com.xzsd.app.AppShop.entity.AppShopInfo" >
         insert into  t_app_shop
         (
+        store_id,
         shop_id,
         goods_id ,
         goods_count,
@@ -20,7 +21,8 @@
         )
         values
         (
-        now(),
+        #{storeCode},
+        #{shopCode},
         #{goodsCode},
         #{goodsCount},
         #{goodsName},
@@ -45,7 +47,8 @@
         b.goods_picture goodsPath,
         a.goods_count,
         b.goods_sell_price goodsPrice,
-        a.version
+        a.version,
+        b.store_code storeCode
        from   t_app_shop a, t_goods_management b
        where a.is_deleted = 0 and b.is_deleted = 0
        and a.goods_id = b.goods_code
@@ -73,4 +76,11 @@
           gmt_modified = now()
           where shop_id = #{shopCode}
     </update>
+
+    <select id="getInviteCode" parameterType="com.xzsd.app.AppShop.entity.AppShopInfo" resultType="java.lang.String">
+        select
+        invite_code inviteCode
+        from t_sys_user
+        where user_code = #{userCode}
+    </select>
 </mapper>

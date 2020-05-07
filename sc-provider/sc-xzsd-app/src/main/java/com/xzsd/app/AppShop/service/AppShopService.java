@@ -5,6 +5,8 @@ package com.xzsd.app.AppShop.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
+import com.neusoft.util.StringUtil;
 import com.xzsd.app.AppShop.dao.AppShopDao;
 import com.xzsd.app.AppShop.entity.AppShopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ public class AppShopService {
     @Resource
     private AppShopDao appShopDao;
 
-
     /**
      * demo 新增购物车
      *
@@ -34,11 +35,19 @@ public class AppShopService {
     public AppResponse addShop(AppShopInfo appShopInfo) {
 
         appShopInfo.setIsDeleted(0);
-        int count = appShopDao.addAppShop(appShopInfo);
-        if (count == 0) {
-            return AppResponse.success("新增失败");
-        } else
-            return AppResponse.success("新增成功");
+        String userCode = SecurityUtils.getCurrentUserId();
+        String invite = appShopDao.getInviteCode(userCode);
+        if ("".equals(invite) || null == invite) {
+            return AppResponse.success("您还未绑定邀请码");
+        }
+        if (null != invite && "" != invite) {
+            appShopInfo.setShopCode(StringUtil.getCommonCode(2));
+            int count = appShopDao.addAppShop(appShopInfo);
+            if (count == 0) {
+                return AppResponse.success("新增失败");
+            }
+        }
+        return AppResponse.success("新增成功");
     }
 
     /**
@@ -82,8 +91,6 @@ public class AppShopService {
 
 
 }
-
-
     /**
      * demo 删除购物车
      * @param appShopInfo
@@ -102,4 +109,5 @@ public class AppShopService {
         else
             return AppResponse.success("删除成功");
     }
+
 }

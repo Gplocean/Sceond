@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class StoreService {
-    @Autowired
+    @Resource
 
     private StoreDao storeDao;
     @Transactional(rollbackFor = Exception.class)
@@ -32,6 +33,10 @@ public class StoreService {
     public AppResponse addStore(StoreInfo storeInfo){
         storeInfo.setIsDeleted(0);
         storeInfo.setCreateBy("刘桂鹏");
+        String hostCode = storeInfo.getHostCode();
+        String hostName = storeDao.getHostName(hostCode);
+        //设置店长账号
+        storeInfo.setHostName(hostName);
         int count = storeDao.addStore(storeInfo);
         if (count == 0) {
             return AppResponse.success("新增失败");
@@ -82,7 +87,8 @@ public class StoreService {
      */
     @Transactional(rollbackFor = Exception.class)
     public AppResponse updateStore(StoreInfo storeInfo) {
-        int countStoreCode = storeDao.countStoreCode(storeInfo);
+         storeDao.updateInviteCode(storeInfo);
+         storeDao.countStoreCode(storeInfo);
         AppResponse appResponse = AppResponse.success("修改成功");
 
         int count = storeDao.updateStore(storeInfo);

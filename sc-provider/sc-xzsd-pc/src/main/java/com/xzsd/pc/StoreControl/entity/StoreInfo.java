@@ -50,7 +50,7 @@ public class StoreInfo {
         /**
          * 门店邀请码
          */
-        private String inviteCode;
+
         /**
          * 省id
          */
@@ -67,6 +67,10 @@ public class StoreInfo {
          * 详细地址
          */
         private String address;
+        /**
+         * 详细地址
+         */
+        private String driverCode;
         /**
          * 省名
          */
@@ -87,6 +91,10 @@ public class StoreInfo {
          * 省市区分类id
          */
         private String sortCode;
+        /**
+         * 邀请码
+         */
+        private String inviteCode;
         /**
          * 角色
          */
@@ -154,6 +162,14 @@ public class StoreInfo {
                 return provinceCode;
         }
 
+        public String getDriverCode() {
+                return driverCode;
+        }
+
+        public String getInviteCode() {
+                return inviteCode;
+        }
+
         public String getCityCode() {
                 return cityCode;
         }
@@ -178,9 +194,7 @@ public class StoreInfo {
                 return storeAccount;
         }
 
-        public String getInviteCode() {
-                return inviteCode;
-        }
+
 
         public String getProvinceName() {
                 return provinceName;
@@ -320,6 +334,10 @@ public class StoreInfo {
 
         public void setParentCode(String parentCode) {
                 this.parentCode = parentCode;
+        }
+
+        public void setDriverCode(String driverCode) {
+                this.driverCode = driverCode;
         }
 
         public void setStoreAcct(String storeAcct) {

@@ -1,6 +1,6 @@
 package com.xzsd.app.AppHost.entity;
 
-public class hostGoodsInfo {
+public class orderGoodsInfo {
     /**
      * 商品名
      */
@@ -22,12 +22,28 @@ public class hostGoodsInfo {
      */
     private  String goodsCode;
     /**
+     * 商品id
+     */
+    private  String storeName;
+    /**
+     * 商品id
+     */
+    private  String address;
+    /**
      * 商品数量
      */
     private  int    goodsCount;
 
     public String getGoodsName() {
         return goodsName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public float getGoodsPrice() {
@@ -64,6 +80,14 @@ public class hostGoodsInfo {
 
     public void setGoodsCode(String goodsCode) {
         this.goodsCode = goodsCode;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setGoodsIntroduction(String goodsIntroduction) {

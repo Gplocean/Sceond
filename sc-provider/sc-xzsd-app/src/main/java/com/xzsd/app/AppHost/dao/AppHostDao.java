@@ -14,29 +14,21 @@ import java.util.List;
 public interface AppHostDao {
 
      /**
-     *查询门店列表
+     *修改门店订单状态
      * @param appHostInfo
      * @return
      */
-    List<AppHostInfo> listEvaluate(AppHostInfo appHostInfo);
+   int updateOrder(AppHostInfo appHostInfo);
 
 
 
-
-
-    /**
-     * 显示热门商品详情
-     * @param appHostInfo
-     * @return
-     */
-    List<AppHostInfo> getGoods(AppHostInfo appHostInfo);
 
     /**
      * 查询一级分类
      * @param appHostInfo
      * @return
      */
-    List<AppHostInfo> getOneClassifyList(AppHostInfo appHostInfo);
+    List<AppHostInfo> getOrder(AppHostInfo appHostInfo);
 
 
     /**
@@ -47,6 +39,17 @@ public interface AppHostDao {
     List<AppHostInfo> listHostOrder(AppHostInfo appHostInfo);
 
 
-
+    /**
+     * 查询司机
+     * @param appHostInfo
+     * @return
+     */
+    List<AppHostInfo> listDriver(AppHostInfo appHostInfo);
+    /**
+     * 查询一级分类
+     * @param appHostInfo
+     * @return
+     */
+    String getStoreCode(AppHostInfo appHostInfo);
 
 }

@@ -32,13 +32,17 @@ public class AppGoodsInfo {
          */
         private String goodsIntroduction;
         /**
+         * 门店编号
+         */
+        private String storeCode;
+        /**
          * 商品图片路径
          */
         private String goodsPicture;
         /**
          * 商品售价
          */
-        private String goodsSellPrice;
+        private String goodsPrice;
         /**
          * 商品评价等级
          */
@@ -139,7 +143,7 @@ public class AppGoodsInfo {
         }
 
         public String getGoodsSellPrice() {
-                return goodsSellPrice;
+                return goodsPrice;
         }
 
         public String getGoodsEvaluateScore() {
@@ -239,11 +243,19 @@ public class AppGoodsInfo {
         }
 
         public void setGoodsSellPrice(String goodsSellPrice) {
-                this.goodsSellPrice = goodsSellPrice;
+                this.goodsPrice = goodsSellPrice;
         }
 
         public void setGoodsEvaluateScore(String goodsEvaluateScore) {
                 this.goodsEvaluateScore = goodsEvaluateScore;
+        }
+
+        public String getStoreCode() {
+                return storeCode;
+        }
+
+        public String getGoodsPrice() {
+                return goodsPrice;
         }
 
         public void setAuthor(String author) {
@@ -304,6 +316,14 @@ public class AppGoodsInfo {
 
         public void setLastModifiedBy(String lastModifiedBy) {
                 this.lastModifiedBy = lastModifiedBy;
+        }
+
+        public void setStoreCode(String storeCode) {
+                this.storeCode = storeCode;
+        }
+
+        public void setGoodsPrice(String goodsPrice) {
+                this.goodsPrice = goodsPrice;
         }
 
         public void setVersion(String version) {

@@ -68,4 +68,17 @@ public interface StoreDao {
      * @return
      */
    List<StoreInfo> getChina (StoreInfo storeInfo);
+
+    /**
+     * 查询店长名字
+     * @param storeInfo
+     * @return
+     */
+    String getHostName (String storeInfo);
+    /**
+     * 查询邀请码
+     * @param storeInfo
+     * @return
+     */
+    int updateInviteCode (StoreInfo storeInfo);
 }

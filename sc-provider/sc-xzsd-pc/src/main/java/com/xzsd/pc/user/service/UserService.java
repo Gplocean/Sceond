@@ -45,7 +45,7 @@ public class UserService {
         String pwd = PasswordUtils.generatePassword(userInfo.getUserPassword());
         userInfo.setIsDeleted(0);
         userInfo.setUserPassword(pwd);
-        // 新增用户
+          //新增用户
         int count = userDao.saveUser(userInfo);
         if (0 == count) {
             return AppResponse.success("新增失败，请重试！");

@@ -2,21 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xzsd.app.AppIndex.dao.IndexDao">
 <!--查询轮播图列表-->
-    <select id="listImage"  parameterType="com.xzsd.app.AppIndex.entity.IndexInfo" resultType="com.xzsd.app.AppIndex.entity.IndexInfo">
+    <!--查询轮播图列表-->
+    <select id="listImage" parameterType="com.xzsd.app.AppIndex.entity.IndexInfo" resultType="com.xzsd.app.AppIndex.entity.IndexInfo">
         select
-        picture_path,
-        goods_code
+        picture_id pictureCode,
+        picture_sorting pictureNum,
+        picture_path goodsPath,
+        goods_code goodsCode,
+        version
         from t_picture_management
         where is_deleted = 0
+        and picture_state = 1
+        order by picture_sorting DESC
     </select>
     <!--查询热门商品-->
     <select id="getGoods"  parameterType="com.xzsd.app.AppIndex.entity.IndexInfo" resultType="com.xzsd.app.AppIndex.entity.IndexInfo">
         select
-        goods_code,
-        goods_name,
-        goods_picture goodsPath,
-        goods_sell_price goodsPrice
-        from t_goods_management
-        where is_deleted = 0
+        a.goods_code,
+        a.goods_name goodsName,
+        a.goods_picture goodsPath,
+        a.goods_sell_price goodsPrice
+        from t_goods_management a ,t_hotgoods_management b
+        where a.is_deleted = 0
+        and a.goods_code = b.goods_id
     </select>
 </mapper>

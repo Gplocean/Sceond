@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class HotGoodsService {
-    @Autowired
+    @Resource
 
     private HotGoodsDao hotGoodsDao;
     @Transactional(rollbackFor = Exception.class)
@@ -98,7 +99,7 @@ public class HotGoodsService {
         if(countSortNum !=0){
             return  AppResponse.success("序号已存在，请重新排序");}
 
-        // 修改轮播图信息
+        // 修改热门商品
         int count = hotGoodsDao.updateHotGoods(hotGoodsInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");

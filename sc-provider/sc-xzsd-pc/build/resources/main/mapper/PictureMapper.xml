@@ -68,11 +68,11 @@
         select
         picture_id pictureCode,
         picture_sorting pictureNum,
-        picture_path,
+        picture_path picturePath,
         picture_state,
         effective_date,
         expiry_date,
-        goods_code,
+        goods_code goodsCode,
         goods_picture,
         version
         from t_picture_management

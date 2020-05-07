@@ -23,6 +23,8 @@
          email,
          remark,
          role,
+         image,
+         invite_code,
          is_deleted,
          sort_no,
          gmt_create,
@@ -41,6 +43,8 @@
             #{email},
             #{remark},
             #{role},
+            #{userPicture},
+            #{inviteCode},
             #{isDeleted},
             0,
             now(),
@@ -68,9 +72,12 @@
         a.gmt_modified,
         a.last_modified_by,
         a.version,
-        a.role role
+        a.user_pwd,
+        a.role role,
+        a.image userPicture
         from t_sys_user a
         where a.is_deleted = 0
+        and a.role != 3
         <if test="userAcct != null and userAcct != ''">
             and a.user_acct like concat('%', #{userAcct}, '%')
         </if>
@@ -123,16 +130,19 @@
             user_code userId,
             user_name userName,
             user_acct userAcct,
-            user_pwd userPwd,
+            user_pwd userPassword,
             id_card idCard,
             sex,
             phone,
             email,
             remark,
+            image userPicture,
             role,
             version
         from t_sys_user
         where user_code = #{userId}
         and is_deleted = 0
+
     </select>
+
 </mapper>

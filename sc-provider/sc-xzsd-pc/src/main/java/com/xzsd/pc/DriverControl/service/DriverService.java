@@ -5,20 +5,25 @@ package com.xzsd.pc.DriverControl.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.neusoft.core.restful.AppResponse;
+import com.neusoft.security.client.utils.SecurityUtils;
+import com.neusoft.util.StringUtil;
 import com.xzsd.pc.DriverControl.dao.DriverDao;
 import com.xzsd.pc.DriverControl.entity.DriverInfo;
 import com.xzsd.pc.DriverControl.entity.DriverInfo;
+import com.xzsd.pc.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.annotation.Resource;
+import java.security.Security;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class DriverService {
-    @Autowired
+    @Resource
 
     private DriverDao driverDao;
     @Transactional(rollbackFor = Exception.class)
@@ -34,9 +39,14 @@ public class DriverService {
         int countDriverName = driverDao.countDriverCode(driverInfo);
         //检测司机名是否存在
         if(countDriverName!=0){
-            return  AppResponse.success("司机已存在，请重新排序");}
+            return  AppResponse.success("司机已存在，请重新命名");}
         driverInfo.setIsDeleted(0);
-        driverInfo.setCreateBy("刘桂鹏");
+        String userCode = SecurityUtils.getCurrentUserId();
+        driverInfo.setCreateBy(userCode);
+        driverInfo.setDriverCode(StringUtil.getCommonCode(2));
+        String pwd = PasswordUtils.generatePassword(driverInfo.getDriverPwd());
+        driverInfo.setDriverPwd(pwd);
+        driverDao.addUser(driverInfo);
         int count = driverDao.addDriver(driverInfo);
         if (count == 0) {
             return AppResponse.success("新增失败");
